@@ -1,7 +1,8 @@
 import React from 'react';
 import { findDay, time } from '../utils/dateUtils';
+import axios from 'axios';
 
-type WeatherNowTodayCardProps = {
+type WeatherHourlyWeeklyCardProps = {
     'hourly-weekly': 'hourly' | 'weekly';
     time: Date;
     'weather-code': number;
@@ -9,15 +10,31 @@ type WeatherNowTodayCardProps = {
     temp: number | string;
 };
 
-function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
+function WeatherHourlyWeeklyCard(props: WeatherHourlyWeeklyCardProps) {
     function isHighlighted() {
         return props['hourly-weekly'] === 'hourly'
             ? props.time.getHours() === new Date().getHours()
             : props.time.getDay() === new Date().getDay();
     }
 
+    const weatherDetails = async () => {
+        try {
+            const response = await axios.get('/');
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching weather details:', error);
+            return null;
+        }
+    };
+
     return (
-        <div>
+        <div
+            className={
+                isHighlighted()
+                    ? ' border-red-700 border-2'
+                    : ' border-red-200 border-2'
+            }
+        >
             <div>
                 {props['hourly-weekly'] === 'weekly'
                     ? findDay(props.time.getDay()).slice(0, 3).toUpperCase()
@@ -30,4 +47,4 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
     );
 }
 
-export default WeatherNowTodayCard;
+export default WeatherHourlyWeeklyCard;

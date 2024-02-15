@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WeatherNowTodayCard from './WeatherNowTodayCard';
+import WeatherHourlyWeeklyCard from './WeatherHourlyWeeklyCard';
 
 type WeatherInfo = {
     time: Date;
@@ -17,17 +17,25 @@ function WeatherHourlyDaily(props: WeatherHourlyDailyProps) {
         'hourly'
     );
 
+    const setHourly = () => {
+        setHourlyDaily('hourly');
+    };
+
+    const setWeekly = () => {
+        setHourlyDaily('weekly');
+    };
+
     return (
         <div>
             <div>
-                <button>Hourly Forecast</button>
-                <button>Weekly Forecast</button>
+                <button onClick={setHourly}>Hourly Forecast</button>
+                <button onClick={setWeekly}>Weekly Forecast</button>
             </div>
 
             <div>
                 {props.weatherInfoList.map((item, _index) => {
                     return (
-                        <WeatherNowTodayCard
+                        <WeatherHourlyWeeklyCard
                             time={item.time}
                             prob-precip={item['prob-precip']}
                             temp={item.temp}
