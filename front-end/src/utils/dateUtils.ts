@@ -31,7 +31,7 @@ export function findMonth(number: number) {
     return months[number];
 }
 
-export function time(number: number) {
+export function amPmTime(number: number) {
     if (number <= 12) {
         return number + 'AM';
     } else {

@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import ForecastContext from '../ForecastContext';
 
-function UvIndex() {
+function FeelsLike() {
     const forecast = useContext(ForecastContext);
     return (
         <div>
             <div>icon</div>
-            <div>UV INDEX</div>
-            <div>{forecast!.current.uv_index}</div>
-            <div>Uv index line</div>
+            <div>FEELS LIKE</div>
+            <div>{forecast!.current.temperature}</div>
         </div>
     );
 }
 
-export default UvIndex;
+export default FeelsLike;

@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
-import WeatherHourlyWeeklyCard from './WeatherHourlyWeeklyCard';
+import React, { useContext, useState } from 'react';
+import WeatherNowTodayCard from './WeatherNowTodayCard';
+import ForecastContext from '../ForecastContext';
 
-type WeatherInfo = {
-    time: Date;
-    'prob-precip': string | undefined;
-    temp: number | string;
-    'weather-code': number;
-};
-
-type WeatherHourlyDailyProps = {
-    weatherInfoList: WeatherInfo[];
-};
-
-function WeatherHourlyDaily(props: WeatherHourlyDailyProps) {
-    const [hourlyDaily, setHourlyDaily] = useState<'hourly' | 'weekly'>(
+function WeatherHourlyDaily() {
+    const forecast = useContext(ForecastContext);
+    const [hourlyDaily, setHourlyDaily] = useState<'hourly' | 'daily'>(
         'hourly'
     );
 
@@ -22,7 +13,7 @@ function WeatherHourlyDaily(props: WeatherHourlyDailyProps) {
     };
 
     const setWeekly = () => {
-        setHourlyDaily('weekly');
+        setHourlyDaily('daily');
     };
 
     return (
@@ -33,14 +24,12 @@ function WeatherHourlyDaily(props: WeatherHourlyDailyProps) {
             </div>
 
             <div>
-                {props.weatherInfoList.map((item, _index) => {
+                {forecast![hourlyDaily].map((item, index) => {
                     return (
-                        <WeatherHourlyWeeklyCard
-                            time={item.time}
-                            prob-precip={item['prob-precip']}
-                            temp={item.temp}
-                            weather-code={item['weather-code']}
-                            hourly-weekly={hourlyDaily}
+                        <WeatherNowTodayCard
+                            key={index}
+                            item={item}
+                            hourly-daily={hourlyDaily}
                         />
                     );
                 })}

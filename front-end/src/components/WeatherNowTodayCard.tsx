@@ -1,31 +1,18 @@
-import React from 'react';
-import { findDay, time } from '../utils/dateUtils';
-import axios from 'axios';
+import { findDay, amPmTime } from '../utils/dateUtils';
+import { DailyHourly } from '../types/Forecast';
 
-type WeatherHourlyWeeklyCardProps = {
-    'hourly-weekly': 'hourly' | 'weekly';
-    time: Date;
-    'weather-code': number;
-    'prob-precip': string | undefined;
-    temp: number | string;
+type WeatherNowTodayCardProps = {
+    'hourly-daily': 'hourly' | 'daily';
+    item: DailyHourly;
 };
 
-function WeatherHourlyWeeklyCard(props: WeatherHourlyWeeklyCardProps) {
+function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
+    const time = new Date(props.item.time);
     function isHighlighted() {
-        return props['hourly-weekly'] === 'hourly'
-            ? props.time.getHours() === new Date().getHours()
-            : props.time.getDay() === new Date().getDay();
+        return props['hourly-daily'] === 'hourly'
+            ? time.getHours() === new Date().getHours()
+            : time.getDay() === new Date().getDay();
     }
-
-    const weatherDetails = async () => {
-        try {
-            const response = await axios.get('/');
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching weather details:', error);
-            return null;
-        }
-    };
 
     return (
         <div
@@ -36,15 +23,17 @@ function WeatherHourlyWeeklyCard(props: WeatherHourlyWeeklyCardProps) {
             }
         >
             <div>
-                {props['hourly-weekly'] === 'weekly'
-                    ? findDay(props.time.getDay()).slice(0, 3).toUpperCase()
-                    : time(props.time.getHours())}
+                {props['hourly-daily'] === 'daily'
+                    ? findDay(time.getDay()).slice(0, 3).toUpperCase()
+                    : amPmTime(time.getHours())}
             </div>
-            <div>{props['weather-code']}</div>
-            {props['prob-precip'] && <div>{props['prob-precip']}</div>}
-            <div>{props.temp}</div>
+            <div>{props.item.weather_code}</div>
+            {props.item.precipitation_probability && (
+                <div>{props.item.precipitation_probability}</div>
+            )}
+            <div>{props.item.temperature}</div>
         </div>
     );
 }
 
-export default WeatherHourlyWeeklyCard;
+export default WeatherNowTodayCard;

@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ForecastContext from '../ForecastContext';
 
-type SunriseProps = {
-    icon: React.JSX.Element;
-    time: string;
-    sunset: string;
-};
-
-function Sunrise(props: SunriseProps) {
+function Sunrise() {
+    const forecast = useContext(ForecastContext);
     return (
         <div>
-            <div>{props.icon}</div>
-            <div>Sunrise</div>
+            <div>icon</div>
+            <div>SUNRISE</div>
+            {/* <div>{forecast!.current.time}</div> //have to finish this line */}
             <div>sunrise line</div>
-            <div>Sunset: {props.sunset} </div>
+            {/* <div>{ `Sunset `}</div> // finish this line as well */}
         </div>
     );
 }

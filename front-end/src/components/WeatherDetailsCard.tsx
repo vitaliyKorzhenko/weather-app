@@ -1,8 +1,8 @@
 import React from 'react';
 import UvIndex from './UvIndex';
-import Sunrise from './Sunrise';
-import WindPressure from './WindPressure';
 import RainfallFeelsLikeHumidityVisibility from './RainfallFeelsLikeHumidityVisibility';
+import Sunrise from './Sunrise';
+import 
 
 type WeatherDetailsCard = {
     title_icon: React.JSX.Element;
@@ -10,7 +10,7 @@ type WeatherDetailsCard = {
     children: React.Component;
 };
 
-function WeatherDetailsCard(props: WeatherDetailsCard) {
+function WeatherDetailsCard() {
     return (
         <div>
             <UvIndex />

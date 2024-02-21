@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import ForecastContext from '../ForecastContext';
 
-function UvIndex() {
+function RainFall() {
     const forecast = useContext(ForecastContext);
     return (
         <div>
             <div>icon</div>
-            <div>UV INDEX</div>
-            <div>{forecast!.current.uv_index}</div>
-            <div>Uv index line</div>
+            <div>RIANFALL</div>
+            <div>{`${forecast!.current.rain} mm in the last hour`}</div>
+            <div>rain probability </div>
         </div>
     );
 }
 
-export default UvIndex;
+export default RainFall;

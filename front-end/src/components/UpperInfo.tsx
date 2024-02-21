@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { findDay, findMonth } from '../utils/dateUtils';
+import ForecastContext from '../ForecastContext';
 
-type UpperInfoProps = {
-    city: string;
-    date: Date;
-    temp: string;
-    'weather-condition': string;
-    temp_hi: string;
-    temp_low: string;
+function UpperInfo() {
+    const forecast = useContext(ForecastContext);
 
-    highlighted: boolean;
-};
-
-function UpperInfo(props: UpperInfoProps) {
-    const day = findDay(props.date.getDate());
-    const month = findMonth(props.date.getMonth());
-    const date = props.date.getDate();
+    const day = findDay(new Date(forecast!.current.time).getDay());
+    const month = findMonth(new Date(forecast!.current.time).getMonth());
+    const date = new Date(forecast!.current.time).getDate();
 
     return (
         <div>
-            <div>{props.city}</div>
+            <div>{forecast!.city}</div>
             <div>{`${day} , ${month} ${date}`}</div>
-            <div>{props.temp}</div>
-            <div>{props['weather-condition']}</div>
-            <div>{props.temp_hi}</div>
-            <div>{props.temp_low}</div>
+            <div>{forecast!.current.temperature}</div>
+            <div>{forecast!.current.weather_code}</div>
+            {/* <div>{forecast!.current.temp_hi}</div>
+            <div>{forecast.temp_low}</div> */}
         </div>
     );
 }

@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ForecastContext from '../ForecastContext';
 
-type AirQualityProps = {
-    icon: React.JSX.Element;
-    quality_index: number;
-    air_quality: string;
-};
-function AirQuality(props: AirQualityProps) {
+function AirQuality() {
+    const forecast = useContext(ForecastContext);
+
+    function airQualityMeaning(index: number) {
+        if (index <= 50) {
+            return 'Good';
+        }
+        if (index <= 100) {
+            return 'Moderate';
+        }
+        if (index <= 150) {
+            return 'Unhealthy for Sensative Groups';
+        }
+        if (index <= 200) {
+            return 'Unhealthy';
+        }
+        if (index <= 300) {
+            return 'Very Unhealthy';
+        }
+
+        return 'Hazardous';
+    }
     return (
         <div>
-            <div>{props.icon}</div>
-            <div>Air quality</div>
-            <div>{`${props['quality_index']} - ${props['air_quality']}`}</div>
-            <div>index line</div>
+            <div>icon</div>
+            <div>AIR QUALITY</div>
+            <div>{`${forecast!.current.us_aqi} - ${airQualityMeaning(
+                forecast!.current.us_aqi
+            )}`}</div>
+            <div>
+                <div>dot</div>
+            </div>
         </div>
     );
 }
