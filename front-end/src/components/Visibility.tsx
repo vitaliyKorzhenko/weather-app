@@ -3,11 +3,10 @@ import ForecastContext from '../ForecastContext';
 
 function Visibility() {
     const forecast = useContext(ForecastContext);
+    const timeNow = new Date();
     return (
         <div>
-            <div>icon</div>
-            <div>VISIBILITY</div>
-            {/* <div>{ forecast!.current.visibility}</div> // finish this later */}
+            {/* <div>{`${forecast!.hourly[timeNow.getHours()].visibility} km`}</div> //what are the units for visibility? There isnt any */}
         </div>
     );
 }

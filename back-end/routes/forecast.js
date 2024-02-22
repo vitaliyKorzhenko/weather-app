@@ -11,11 +11,17 @@ router.get('/', async function (req, res) {
         'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&current=european_aqi,us_aqi,uv_index&timezone=auto&forecast_days=7'
     );
 
+    const {
+        data: { results: latLong },
+    } = await axios.get(
+        'https://geocoding-api.open-meteo.com/v1/search?name=Kyiv'
+    );
+
+    // console.log(latLong.results);
+
     function dailyHourlyInfo(obj, number) {
         const obj24 = obj.time.slice(0, number);
         return obj24.map((item, index) => {
-            // const uvIndex = weatherDetails.daily['uv_index_max'][index];
-            // console.log('uvIndex:', uvIndex);
             return {
                 time: item,
                 temperature: (obj.temperature_2m ??
@@ -45,6 +51,9 @@ router.get('/', async function (req, res) {
             wind_direction: obj.wind_direction_10m,
             uv_index: airQuality.current.uv_index,
             us_aqi: airQuality.current.us_aqi,
+            sunrise: weatherDetails.daily['sunrise'][0],
+            sunset: weatherDetails.daily['sunset'][0],
+            visibility: weatherDetails.hourly,
         };
         return currentObj;
     }
@@ -53,6 +62,7 @@ router.get('/', async function (req, res) {
         current: currentInfo(weatherDetails.current),
         daily: dailyHourlyInfo(weatherDetails.daily),
         hourly: dailyHourlyInfo(weatherDetails.hourly, 25),
+        latLong,
     });
 });
 

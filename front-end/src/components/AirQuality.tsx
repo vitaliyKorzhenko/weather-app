@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import ForecastContext from '../ForecastContext';
 
 function AirQuality() {
@@ -25,8 +25,6 @@ function AirQuality() {
     }
     return (
         <div>
-            <div>icon</div>
-            <div>AIR QUALITY</div>
             <div>{`${forecast!.current.us_aqi} - ${airQualityMeaning(
                 forecast!.current.us_aqi
             )}`}</div>

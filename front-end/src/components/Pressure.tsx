@@ -6,8 +6,6 @@ function Pressure() {
 
     return (
         <div>
-            <div>icon</div>
-            <div>PRESSURE</div>
             <div>some circle diagram</div>
         </div>
     );

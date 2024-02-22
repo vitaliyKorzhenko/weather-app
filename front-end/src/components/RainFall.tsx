@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import ForecastContext from '../ForecastContext';
 
 function RainFall() {
     const forecast = useContext(ForecastContext);
+    const timeNow = new Date();
     return (
         <div>
-            <div>icon</div>
-            <div>RIANFALL</div>
             <div>{`${forecast!.current.rain} mm in the last hour`}</div>
-            <div>rain probability </div>
+            <div>
+                {forecast!.hourly[timeNow.getHours()].precipitation_probability}
+            </div>
         </div>
     );
 }

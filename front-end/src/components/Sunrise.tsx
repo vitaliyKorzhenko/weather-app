@@ -1,15 +1,26 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import ForecastContext from '../ForecastContext';
 
 function Sunrise() {
     const forecast = useContext(ForecastContext);
+    const sunrise = new Date(forecast!.current.sunrise);
+    const sunset = new Date(forecast!.current.sunset);
+
     return (
         <div>
-            <div>icon</div>
-            <div>SUNRISE</div>
-            {/* <div>{forecast!.current.time}</div> //have to finish this line */}
+            <div>
+                {sunrise.toLocaleString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                })}
+            </div>
             <div>sunrise line</div>
-            {/* <div>{ `Sunset `}</div> // finish this line as well */}
+            <div>
+                {`Sunset: ${sunset.toLocaleString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                })}`}
+            </div>
         </div>
     );
 }

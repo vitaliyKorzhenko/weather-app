@@ -1,9 +1,23 @@
 import React from 'react';
 
-function WeatherInfoCardBorderAndTitle({ children, title, icon }) {
+type WeatherInfoCardBorderAndTitleProps = {
+    children: React.JSX.Element;
+    title: string;
+    icon: React.JSX.Element;
+};
+
+function WeatherInfoCardBorderAndTitle({
+    children,
+    title,
+    icon,
+}: WeatherInfoCardBorderAndTitleProps) {
     return (
         <div>
-            {/* //Maybe I should have added all those components here? But if I add here then I dont need cihldren props here... */}
+            <div>
+                <div>{icon}</div>
+                <div>{title}</div>
+            </div>
+            <div>{children}</div>
         </div>
     );
 }

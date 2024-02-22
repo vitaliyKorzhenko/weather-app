@@ -19,6 +19,10 @@ export interface Current {
     pressure: number;
     uv_index: number;
     us_aqi: number;
+    sunrise: string;
+    sunset: string;
+    wind_speed: number;
+    wind_direction: number;
 }
 
 export interface DailyHourly {
@@ -26,4 +30,5 @@ export interface DailyHourly {
     temperature: number;
     precipitation_probability: number;
     weather_code: number;
+    visibility: number;
 }
