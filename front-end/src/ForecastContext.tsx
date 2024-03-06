@@ -11,19 +11,37 @@ export function ForecastContextProvider(props: {
         Forecast | undefined
     >();
 
+    const [location, setLocation] = useState<GeolocationPosition | undefined>();
+
     useEffect(() => {
-        weatherDetails();
+        navigator.geolocation.getCurrentPosition(
+            (location) => {
+                setLocation(location);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }, []);
 
-    const weatherDetails = async () => {
-        try {
-            const { data } = await axios.get('/forecast');
-            setWeatherForecast(data);
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching weather details:', error);
+    useEffect(() => {
+        const weatherDetails = async () => {
+            try {
+                const { data } = await axios.get(
+                    `/forecast?latitude=${location?.coords.latitude}&longitute=${location?.coords.longitude}`
+                );
+                setWeatherForecast(data);
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching weather details:', error);
+            }
+        };
+
+        if (location) {
+            weatherDetails();
         }
-    };
+    }, [location]);
+
     return (
         <ForecastContext.Provider value={weatherForecast}>
             {weatherForecast && props.children}

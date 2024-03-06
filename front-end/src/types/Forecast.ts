@@ -23,6 +23,10 @@ export interface Current {
     sunset: string;
     wind_speed: number;
     wind_direction: number;
+    temp_high: number;
+    temp_low: number;
+    city: string;
+    country: string;
 }
 
 export interface DailyHourly {

@@ -1,24 +1,17 @@
-import React from 'react';
+import { useContext } from 'react';
+import ForecastContext from '../ForecastContext';
 
-type SavedLocationCardProps = {
-    temp_hi: string; //через те що там є значок температури який буде стрінг
-    temp_low: string;
-    temp: string;
-    city: string;
-    country: string;
-    weather_condition: string;
-    icon: React.JSX.Element;
-};
-
-function SavedLocationCard(props: SavedLocationCardProps) {
+function SavedLocationCard() {
+    const forecast = useContext(ForecastContext);
     return (
         <div>
-            <div>{props.temp}</div>
-            <div>{props.temp_hi}</div>
-            <div>{props.temp_low}</div>
-            <div>{`${props.city}, ${props.country}`}</div>
-            <div>{props.icon}</div>
-            <div>{props['weather_condition']}</div>
+            <div>{forecast!.current.temperature}</div>
+            <div>{forecast!.current.weather_code}</div>
+            <div>{forecast!.current.temp_high}</div>
+            <div>{forecast!.current.temp_low}</div>
+            <div>{`${forecast!.current.city}, ${
+                forecast!.current.country
+            }`}</div>
         </div>
     );
 }

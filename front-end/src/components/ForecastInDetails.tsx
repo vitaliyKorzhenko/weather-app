@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
 import WeatherHourlyDaily from './WeatherHourlyDaily';
 import AirQuality from './AirQuality';
-import ForecastContext from '../ForecastContext';
 import WeatherInfoCardBorderAndTitle from './WeatherInfoCardBorderAndTitle';
 import UvIndex from './UvIndex';
 import Sunrise from './Sunrise';
@@ -13,7 +11,6 @@ import Visibility from './Visibility';
 import Pressure from './Pressure';
 
 function ForecastInDetails() {
-    const forecast = useContext(ForecastContext);
     return (
         <div>
             <WeatherHourlyDaily />
@@ -21,7 +18,7 @@ function ForecastInDetails() {
             <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
                 <AirQuality />
             </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="UUV INDEX" icon="">
+            <WeatherInfoCardBorderAndTitle title="UV INDEX" icon="">
                 <UvIndex />
             </WeatherInfoCardBorderAndTitle>
             <WeatherInfoCardBorderAndTitle title="SUNRISE   " icon="">
@@ -45,9 +42,6 @@ function ForecastInDetails() {
             <WeatherInfoCardBorderAndTitle title="PRESSURE" icon="">
                 <Pressure />
             </WeatherInfoCardBorderAndTitle>
-
-            {/* <AirQuality />
-            <WeatherDetailsCard /> */}
         </div>
     );
 }
