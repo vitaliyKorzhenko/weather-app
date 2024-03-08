@@ -91,25 +91,25 @@ router.post(
             { email: existingUser.email },
             process.env.JWTSECRET,
             {
-                expiresIn: '1 day',
+                expiresIn: '60 days',
             }
         ); //{email: yalo@ukr.net, iat:123455, exp: 134556}
 
-        await Token.create({ token, userId: existingUser._id, valid: true });
+        await Token.create({ token, userId: existingUser._id, loggedin: true });
 
         res.end(token);
     }
 );
 
 router.delete('/logout', async function (req, res) {
-    console.log('Middleware: Request received 7');
     if (req.user) {
+        console.log('user exists');
         await Token.findOneAndUpdate(
             {
                 userId: req.user._id,
                 token: req.headers.authorization.slice(7),
             },
-            { valid: false }
+            { loggedin: false }
         );
         return res.end('User has been successfully logged out');
     }

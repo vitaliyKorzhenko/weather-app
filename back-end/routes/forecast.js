@@ -29,6 +29,7 @@ router.get(
         if (!result.isEmpty()) {
             return res.send({ errors: result.array() });
         }
+
         let lat, long, city, country;
         if (req.query.name) {
             const {
@@ -42,9 +43,16 @@ router.get(
             city = latLong[0].name;
             country = latLong[0].country;
         } else {
-            //todo reverse geocoding;
+            const apikey = process.env.GEO_API_CODE;
+            //reverse geocoding;
             lat = req.query.latitude;
             long = req.query.longitude;
+
+            const { data } = await axios.get(
+                `https://geocode.xyz/${lat},${long}?json=1&auth=${apikey}`
+            );
+            city = data.city;
+            country = data.country;
         }
 
         console.log(lat, long);
@@ -102,6 +110,8 @@ router.get(
                     ],
                 city,
                 country,
+                lat,
+                long,
             };
             return currentObj;
         }

@@ -22,40 +22,40 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //middleware that provides token verification
 app.use(async (req, res, next) => {
-    req.user = {};
+    console.log('hello 1');
     const {
         headers: { authorization }, // Authorization = 'Bearer Token'
     } = req;
 
-    const tokenInDb = await Token.findOne({
-        userId: req.user._id,
-        token: tokenFromHeader,
-    });
-
-    console.log('Token in DB:', tokenInDb);
-
     if (authorization) {
+        //console.log('hello 2');
         try {
+            //console.log('try entered');
             const encodedJwtToken = authorization.slice(7); // 'wekevqivbqeivbqriuv'
+            //console.log(encodedJwtToken);
             const decodedJwtToken = jwt.verify(
                 encodedJwtToken,
                 process.env.JWTSECRET
             );
+            //console.log(decodedJwtToken);
             //{email: yalo@ukr.net, iat:123455, exp: 134556}
             const token = await Token.findOne({ token: encodedJwtToken });
-            if (token.valid === false) {
+            //console.log(token);
+            if (token.loggedin === false) {
                 return next(new Error('Token is invalid'));
             }
+            //console.log('hello 3');
             req.user = await User.findOne({ email: decodedJwtToken.email });
 
-            //console.log(encodedJwtToken, decodedJwtToken, req.user);
+            //console.log(req.user);
         } catch (err) {
-            return next(createError(401));
+            return next(err);
         }
     }
 
     next();
 });
+
 app.use('/account', accountRouter);
 app.use('/forecast', forecastRouter);
 app.use('/locations', savedLocationsRouter);

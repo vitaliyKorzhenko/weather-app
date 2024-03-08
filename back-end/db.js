@@ -20,7 +20,7 @@ const User = mongoose.model('User', {
 const Token = mongoose.model('Token', {
     userId: mongoose.Types.ObjectId,
     token: String,
-    valid: Boolean,
+    loggedin: Boolean,
 });
 
 module.exports = {
