@@ -1,13 +1,14 @@
 var axios = require('axios');
 var express = require('express');
 var router = express.Router();
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
 const { SavedLocation } = require('../db');
 
 const validateCity = () => body('city').notEmpty().isString();
 const validateCountry = () => body('country').notEmpty().isString();
 const validateLat = () => body('latitude').notEmpty().isNumeric();
 const validateLong = () => body('longitude').notEmpty().isNumeric();
+const validateId = () => param('id').notEmpty().isHexadecimal();
 
 router.get('/', async function (req, res) {
     if (!req.user) {
@@ -52,6 +53,11 @@ router.post(
     validateLat(),
     validateLong(),
     async function (req, res) {
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            return res.send({ errors: result.array() });
+        }
+
         //state one: no token no user
         if (!req.user) {
             return res.status(401).end();
@@ -80,8 +86,12 @@ router.post(
     }
 );
 
-router.delete('/:id', async function (req, res) {
-    console.log('hello');
+router.delete('/:id', validateId(), async function (req, res) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        return res.send({ errors: result.array() });
+    }
+
     if (!req.user) {
         return res.status(401).end();
     }
@@ -91,7 +101,7 @@ router.delete('/:id', async function (req, res) {
 
     const deleteLocation = await SavedLocation.findByIdAndDelete(locationId);
 
-    if (deleteLocation.deletedCount === 0) {
+    if (!deleteLocation || deleteLocation.deletedCount === 0) {
         return res.status(404).end(`Location doesn't exist`);
     }
 

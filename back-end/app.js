@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const jwt = require('jsonwebtoken');
+const expressWinston = require('express-winston');
 
 var app = express();
 
@@ -12,6 +13,15 @@ var savedLocationsRouter = require('./routes/savedLocation');
 var accountRouter = require('./routes/account');
 var forecastRouter = require('./routes/forecast');
 const { User, Token } = require('./db');
+const { transports, format } = require('winston');
+const log = require('./logger');
+
+app.use(
+    expressWinston.logger({
+        winstonInstance: log,
+        statusLevels: true,
+    })
+);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //middleware that provides token verification
 app.use(async (req, res, next) => {
-    console.log('hello 1');
+    // console.log('hello 1');
     const {
         headers: { authorization }, // Authorization = 'Bearer Token'
     } = req;
@@ -64,6 +74,21 @@ app.use('/locations', savedLocationsRouter);
 app.use(function (req, res, next) {
     next(createError(404));
 });
+
+const myFormat = format.printf(({ level, meta, timestamp }) => {
+    return `${timestamp} ${level} ${meta.message}`;
+});
+
+app.use(
+    expressWinston.errorLogger({
+        transports: [
+            new transports.File({
+                filename: 'logsInternalErrors.log',
+            }),
+        ],
+        format: format.combine(format.json(), format.timestamp()),
+    })
+);
 
 // error handler
 app.use(function (err, req, res, next) {
