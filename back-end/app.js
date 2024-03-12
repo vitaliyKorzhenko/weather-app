@@ -32,7 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //middleware that provides token verification
 app.use(async (req, res, next) => {
-    // console.log('hello 1');
     const {
         headers: { authorization }, // Authorization = 'Bearer Token'
     } = req;
@@ -52,13 +51,15 @@ app.use(async (req, res, next) => {
             const token = await Token.findOne({ token: encodedJwtToken });
             //console.log(token);
             if (token.loggedin === false) {
+                log.warn('token is invalid');
                 return next(new Error('Token is invalid'));
             }
             //console.log('hello 3');
             req.user = await User.findOne({ email: decodedJwtToken.email });
 
-            //console.log(req.user);
+            log.info(req.user + 'successfully logged in', req.user);
         } catch (err) {
+            log.warn(err);
             return next(err);
         }
     }

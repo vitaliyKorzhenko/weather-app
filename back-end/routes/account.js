@@ -4,6 +4,7 @@ var { User, Token } = require('./../db');
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const log = require('../logger');
 
 const validateEmail = () =>
     body('email').notEmpty().withMessage('You email is empty').isEmail();
@@ -38,6 +39,7 @@ router.post(
         });
 
         if (existingUser) {
+            log.warn('User with this email already exists');
             res.status(400).end('User with this email already exists');
 
             return;
@@ -47,6 +49,8 @@ router.post(
             email: loginData.email,
             passwordHash: await bcrypt.hash(loginData.password, 10),
         });
+
+        log.info('You have seccussfully created an account');
 
         res.end('You have seccussfully created an account');
     }
@@ -58,6 +62,8 @@ router.delete('/delete', async function (req, res) {
         return res.end('User has been successfully deleted');
     }
 
+    log.info('User has been successfully deleted');
+
     res.status(401).end();
 });
 
@@ -66,11 +72,16 @@ router.post(
     validateEmail(),
     validatePassword(),
     async function (req, res) {
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            return res.send({ errors: result.array() });
+        }
         const loginData = req.body; //{email:..., password:...}
 
         const existingUser = await User.findOne({ email: loginData.email });
 
         if (!existingUser) {
+            log.warn('User is not found');
             res.status(400).end(`This email doesn't exist`);
 
             return;
@@ -82,6 +93,7 @@ router.post(
         );
 
         if (!isPasswordMatch) {
+            log.warn(`Email or Password doesn't match`);
             res.status(400).end(`Email or Password doesn't match`);
             return;
         }
@@ -97,13 +109,15 @@ router.post(
 
         await Token.create({ token, userId: existingUser._id, loggedin: true });
 
+        log.info('User is successfully logged in');
+
         res.end(token);
     }
 );
 
 router.delete('/logout', async function (req, res) {
     if (req.user) {
-        console.log('user exists');
+        log.info('User exists');
         await Token.findOneAndUpdate(
             {
                 userId: req.user._id,
@@ -111,6 +125,7 @@ router.delete('/logout', async function (req, res) {
             },
             { loggedin: false }
         );
+        log.info('User has been successfully logged out');
         return res.end('User has been successfully logged out');
     }
 

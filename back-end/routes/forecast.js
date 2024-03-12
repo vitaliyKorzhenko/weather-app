@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 const { query, validationResult } = require('express-validator');
+const log = require('../logger');
 
 const validateCity = () =>
     query('name')
@@ -27,35 +28,41 @@ router.get(
     async function (req, res) {
         const result = validationResult(req);
         if (!result.isEmpty()) {
+            log.warn('parameters are not valid');
             return res.send({ errors: result.array() });
         }
 
         let lat, long, city, country;
         if (req.query.name) {
+            log.info('geocoding request');
             const {
                 data: { results: latLong },
             } = await axios.get(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${req.query.name}`
             );
-            console.log(latLong);
+
             lat = latLong[0].latitude;
             long = latLong[0].longitude;
             city = latLong[0].name;
             country = latLong[0].country;
+
+            log.info('query params have been successfully received');
         } else {
             const apikey = process.env.GEO_API_CODE;
             //reverse geocoding;
             lat = req.query.latitude;
             long = req.query.longitude;
 
+            log.info('reverse geocoding request');
             const { data } = await axios.get(
                 `https://geocode.xyz/${lat},${long}?json=1&auth=${apikey}`
             );
             city = data.city;
             country = data.country;
+            log.info(
+                'Query params for reverse geocoding have been successfully received'
+            );
         }
-
-        console.log(lat, long);
 
         const [{ data: weatherDetails }, { data: airQuality }] =
             await Promise.all([
@@ -71,6 +78,7 @@ router.get(
 
         function dailyHourlyInfo(obj, number) {
             const obj24 = obj.time.slice(0, number);
+            log.info('Daily and Hourly forecast received');
             return obj24.map((item, index) => {
                 return {
                     time: item,
@@ -85,6 +93,7 @@ router.get(
         }
 
         function currentInfo(obj) {
+            log.info('Current forecast received');
             const currentObj = {
                 time: obj.time,
                 temperature: obj['temperature_2m'],
@@ -115,7 +124,7 @@ router.get(
             };
             return currentObj;
         }
-
+        log.info('Current Daily and hourly forecast returned');
         res.json({
             current: currentInfo(weatherDetails.current),
             daily: dailyHourlyInfo(weatherDetails.daily),

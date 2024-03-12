@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const { body, param, validationResult } = require('express-validator');
 const { SavedLocation } = require('../db');
+const log = require('../logger');
 
 const validateCity = () => body('city').notEmpty().isString();
 const validateCountry = () => body('country').notEmpty().isString();
@@ -19,6 +20,8 @@ router.get('/', async function (req, res) {
     const userSavedLocations = await SavedLocation.find({
         userId: req.user._id,
     }); //returns an array of saved locations objects// [{}, {}]
+
+    log.info('Fetched all saved locations');
 
     const savedLocationsWithForecast = await Promise.all(
         userSavedLocations.map(async (item) => {
@@ -37,8 +40,12 @@ router.get('/', async function (req, res) {
                     longitude: item.longitude,
                     id: item._id,
                 };
+                log.info(
+                    'Created current forecast object for each saved location'
+                );
                 return currentObj;
             }
+            log.info('Return an object with forecast for each location');
             return currentInfo(weatherDetails.current);
         })
     );
@@ -60,6 +67,7 @@ router.post(
 
         //state one: no token no user
         if (!req.user) {
+            log.warn('User doesnt exist');
             return res.status(401).end();
         }
 
@@ -71,6 +79,7 @@ router.post(
 
         //if exists or doesnt exist
         if (exists) {
+            log.warn('Location already exists');
             return res.status(400).end('Location already exists');
         }
 
@@ -81,6 +90,8 @@ router.post(
             latitude,
             longitude,
         });
+
+        log.info('Location added');
 
         res.status(201).end('Location added');
     }
@@ -93,6 +104,7 @@ router.delete('/:id', validateId(), async function (req, res) {
     }
 
     if (!req.user) {
+        log.warn('User doesnt exist');
         return res.status(401).end();
     }
 
@@ -102,9 +114,10 @@ router.delete('/:id', validateId(), async function (req, res) {
     const deleteLocation = await SavedLocation.findByIdAndDelete(locationId);
 
     if (!deleteLocation || deleteLocation.deletedCount === 0) {
+        log.warn('Location doesnt exist');
         return res.status(404).end(`Location doesn't exist`);
     }
-
+    log.info('Location has been successfully deleted');
     return res.end('Location has been successfully deleted');
 });
 
