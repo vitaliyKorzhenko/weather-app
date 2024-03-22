@@ -1,15 +1,18 @@
-import { findDay, amPmTime } from '../utils/dateUtils';
+import { findDay, amPmTime, parseISOLocal } from '../utils/dateUtils';
 import { DailyHourly } from '../types/Forecast';
 
 type WeatherNowTodayCardProps = {
-    'hourly-daily': 'hourly' | 'daily';
+    hourlyDaily: 'hourly' | 'daily';
     item: DailyHourly;
 };
 
 function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
-    const time = new Date(props.item.time);
+    const time = parseISOLocal(props.item.time); //props.item.time = "2024-03-14T00:00"
+
+    //console.log(time);
+
     function isHighlighted() {
-        return props['hourly-daily'] === 'hourly'
+        return props['hourlyDaily'] === 'hourly'
             ? time.getHours() === new Date().getHours()
             : time.getDay() === new Date().getDay();
     }
@@ -23,10 +26,11 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
             }
         >
             <div>
-                {props['hourly-daily'] === 'daily'
+                {props['hourlyDaily'] === 'daily'
                     ? findDay(time.getDay()).slice(0, 3).toUpperCase()
-                    : amPmTime(time.getHours())}
+                    : amPmTime(time)}
             </div>
+
             <div>{props.item.weather_code}</div>
             {props.item.precipitation_probability && (
                 <div>{props.item.precipitation_probability}</div>

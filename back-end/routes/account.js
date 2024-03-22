@@ -59,6 +59,8 @@ router.post(
 router.delete('/delete', async function (req, res) {
     if (req.user) {
         await User.findOneAndDelete(req.user);
+        await Token.deleteMany({ userId: req.user._id });
+
         return res.end('User has been successfully deleted');
     }
 

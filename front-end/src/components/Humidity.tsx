@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import ForecastContext from '../ForecastContext';
+import ForecastContext from '../../Context/ForecastContext';
 
 function Humidity() {
     const forecast = useContext(ForecastContext);

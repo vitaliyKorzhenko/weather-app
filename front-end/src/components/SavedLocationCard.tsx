@@ -1,17 +1,19 @@
 import { useContext } from 'react';
-import ForecastContext from '../ForecastContext';
+import { Location } from '../types/Location';
+import SavedLocationsContext from '../../Context/SavedLocationsContext';
 
-function SavedLocationCard() {
-    const forecast = useContext(ForecastContext);
+function SavedLocationCard({ item }: { item: Location }) {
+    const context = useContext(SavedLocationsContext);
     return (
         <div>
-            <div>{forecast!.current.temperature}</div>
-            <div>{forecast!.current.weather_code}</div>
-            <div>{forecast!.current.temp_high}</div>
-            <div>{forecast!.current.temp_low}</div>
-            <div>{`${forecast!.current.city}, ${
-                forecast!.current.country
-            }`}</div>
+            <button onClick={() => context?.deleteLocationHandler(item.id)}>
+                Delete
+            </button>
+            <div>{item.temperature}</div>
+            <div>{item.weather_code}</div>
+            <div>{item.temp_high}</div>
+            <div>{item.temp_low}</div>
+            <div>{`${item.city}, ${item.country}`}</div>
         </div>
     );
 }

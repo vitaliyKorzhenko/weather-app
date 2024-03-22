@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ForecastContext from '../ForecastContext';
+import ForecastContext from '../../Context/ForecastContext';
 
 function FeelsLike() {
     const forecast = useContext(ForecastContext);

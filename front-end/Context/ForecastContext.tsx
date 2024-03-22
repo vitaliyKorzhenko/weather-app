@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { Forecast } from './types/Forecast';
+import { Forecast } from '../src/types/Forecast';
 import axios from 'axios';
 
 const ForecastContext = createContext<Forecast | undefined>(undefined);
@@ -10,6 +10,11 @@ export function ForecastContextProvider(props: {
     const [weatherForecast, setWeatherForecast] = useState<
         Forecast | undefined
     >();
+    // weatherForecast = {
+    //     current: weatherDetails.current,
+    //     daily:...,
+    //     hourly:...,
+    // }
 
     const [location, setLocation] = useState<GeolocationPosition | undefined>();
 
@@ -28,10 +33,10 @@ export function ForecastContextProvider(props: {
         const weatherDetails = async () => {
             try {
                 const { data } = await axios.get(
-                    `/forecast?latitude=${location?.coords.latitude}&longitute=${location?.coords.longitude}`
+                    `/forecast?latitude=${location?.coords.latitude}&longitude=${location?.coords.longitude}`
                 );
                 setWeatherForecast(data);
-                console.log(data);
+                //console.log(data);
             } catch (error) {
                 console.error('Error fetching weather details:', error);
             }

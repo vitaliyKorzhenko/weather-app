@@ -1,7 +1,7 @@
 var axios = require('axios');
 var express = require('express');
 var router = express.Router();
-const { body, param, validationResult } = require('express-validator');
+const { body, param, validationResult, query } = require('express-validator');
 const { SavedLocation } = require('../db');
 const log = require('../logger');
 
@@ -10,6 +10,8 @@ const validateCountry = () => body('country').notEmpty().isString();
 const validateLat = () => body('latitude').notEmpty().isNumeric();
 const validateLong = () => body('longitude').notEmpty().isNumeric();
 const validateId = () => param('id').notEmpty().isHexadecimal();
+const validateQuery = () =>
+    query('location').notEmpty().isString().isLength({ min: 2 });
 
 router.get('/', async function (req, res) {
     if (!req.user) {
@@ -53,6 +55,40 @@ router.get('/', async function (req, res) {
     res.json(savedLocationsWithForecast);
 });
 
+router.get('/find', validateQuery(), async function (req, res) {
+    //checking validation
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        //if it's not empry it means validation failed
+        return res.status(400).send({ errors: result.array() });
+    }
+
+    //checking auth
+    // if (!req.user) {
+    //     log.warn('User doesnt exist');
+    //     return res.status(401).end();
+    // }
+
+    //geocoding request api
+    log.info('geocoding request');
+    const {
+        data: { results },
+    } = await axios.get(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${req.query.location}` //тут буде те що ми вводимо у пошук: google.com/cities?location=Kyiv
+    );
+
+    res.send(
+        results.map((item) => ({
+            lat: item.latitude,
+            long: item.longitude,
+            city: item.name,
+            country: item.country,
+        }))
+    );
+
+    log.info('query params have been successfully received');
+});
+
 router.post(
     '/',
     validateCity(),
@@ -62,7 +98,7 @@ router.post(
     async function (req, res) {
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            return res.send({ errors: result.array() });
+            return res.status(400).send({ errors: result.array() });
         }
 
         //state one: no token no user
@@ -100,7 +136,7 @@ router.post(
 router.delete('/:id', validateId(), async function (req, res) {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-        return res.send({ errors: result.array() });
+        return res.status(400).send({ errors: result.array() });
     }
 
     if (!req.user) {

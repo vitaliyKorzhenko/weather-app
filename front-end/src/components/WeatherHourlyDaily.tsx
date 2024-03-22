@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import WeatherNowTodayCard from './WeatherNowTodayCard';
-import ForecastContext from '../ForecastContext';
+import ForecastContext from '../../Context/ForecastContext';
 
 function WeatherHourlyDaily() {
     const forecast = useContext(ForecastContext);
@@ -15,7 +15,7 @@ function WeatherHourlyDaily() {
     const setWeekly = () => {
         setHourlyDaily('daily');
     };
-
+    //console.log(forecast!.daily[0].time);
     return (
         <div>
             <div>
@@ -29,7 +29,7 @@ function WeatherHourlyDaily() {
                         <WeatherNowTodayCard
                             key={index}
                             item={item}
-                            hourly-daily={hourlyDaily}
+                            hourlyDaily={hourlyDaily}
                         />
                     );
                 })}

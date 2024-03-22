@@ -1,6 +1,4 @@
 import { createContext, useEffect, useState } from 'react';
-import Homepage from './components/Homepage';
-import SavedLocationsPage from './components/SavedLocationsPage';
 
 const RouterContext = createContext<RouterContext | undefined>(undefined);
 
@@ -16,11 +14,12 @@ export function RouterContextProvider(props: {
 
     const changeRoute = (route: string) => {
         setRoute(route);
-        window.history.pushState(null, '', route);
+        window.history.pushState(null, '', route); //backward button gets active
     };
 
     useEffect(() => {
         const prevPageRoute = (window.onpopstate = () => {
+            //being called when I press button
             setRoute(window.location.pathname);
         });
 
@@ -35,10 +34,3 @@ export function RouterContextProvider(props: {
 }
 
 export default RouterContext;
-
-//RouteContext = {
-//   provider: ...
-//   consumer: {route: route, setRoute: ()},
-//
-// }
-// }
