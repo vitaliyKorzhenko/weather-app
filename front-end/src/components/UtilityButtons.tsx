@@ -8,7 +8,7 @@ function UtilityButtons() {
         <div>
             <button>Current Location</button>
             <button>Add saved location</button>
-            <button onClick={() => route!.setRoute('/saveLoc')}>
+            <button onClick={() => route!.setRoute('/saved-locations')}>
                 Saved Locations
             </button>
         </div>

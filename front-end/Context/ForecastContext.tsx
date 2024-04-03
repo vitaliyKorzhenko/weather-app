@@ -31,9 +31,19 @@ export function ForecastContextProvider(props: {
 
     useEffect(() => {
         const weatherDetails = async () => {
+            const queryUrl = new URLSearchParams(window.location.search);
+
             try {
                 const { data } = await axios.get(
-                    `/forecast?latitude=${location?.coords.latitude}&longitude=${location?.coords.longitude}`
+                    `/forecast?latitude=${
+                        queryUrl.has('latitude')
+                            ? queryUrl.get('latitude')
+                            : location?.coords.latitude
+                    }&longitude=${
+                        queryUrl.has('longitude')
+                            ? queryUrl.get('longitude')
+                            : location?.coords.longitude
+                    }`
                 );
                 setWeatherForecast(data);
                 //console.log(data);

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const log = require('../logger');
 
 const validateEmail = () =>
-    body('email').notEmpty().withMessage('You email is empty').isEmail();
+    body('email').notEmpty().withMessage('Your email is empty').isEmail();
 const validatePassword = () =>
     body('password')
         .notEmpty()
@@ -19,7 +19,7 @@ const validatePassword = () =>
             minNumbers: 1,
             minSymbols: 0,
         })
-        .withMessage('You password doesnt meet the requirements');
+        .withMessage('Your password doesnt meet the requirements');
 
 router.post(
     '/create', //doesnt give me any token yet
@@ -28,7 +28,7 @@ router.post(
     async function (req, res) {
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            return res.send({ errors: result.array() });
+            return res.status(400).send({ errors: result.array() });
         }
 
         const loginData = req.body; //{email:..., password:...}
@@ -76,15 +76,19 @@ router.post(
     async function (req, res) {
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            return res.send({ errors: result.array() });
+            return res.status(400).send({ errors: result.array() });
         }
+
         const loginData = req.body; //{email:..., password:...}
 
         const existingUser = await User.findOne({ email: loginData.email });
 
         if (!existingUser) {
             log.warn('User is not found');
-            res.status(400).end(`This email doesn't exist`);
+
+            res.status(400).send({
+                errors: [{ msg: `This email doesn't exist` }],
+            });
 
             return;
         }
@@ -96,7 +100,9 @@ router.post(
 
         if (!isPasswordMatch) {
             log.warn(`Email or Password doesn't match`);
-            res.status(400).end(`Email or Password doesn't match`);
+            res.status(400).send({
+                errors: [{ msg: `Email or Password doesn't match` }],
+            });
             return;
         }
 

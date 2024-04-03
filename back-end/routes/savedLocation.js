@@ -15,6 +15,8 @@ const validateQuery = () =>
 
 router.get('/', async function (req, res) {
     if (!req.user) {
+        log.warn('coudnt find user');
+
         return res.status(401).end();
     }
 
@@ -78,12 +80,12 @@ router.get('/find', validateQuery(), async function (req, res) {
     );
 
     res.send(
-        results.map((item) => ({
-            lat: item.latitude,
-            long: item.longitude,
+        results?.map((item) => ({
+            latitude: item.latitude,
+            longitude: item.longitude,
             city: item.name,
             country: item.country,
-        }))
+        })) ?? []
     );
 
     log.info('query params have been successfully received');
@@ -111,7 +113,11 @@ router.post(
         const { city, country, latitude, longitude } = req.body;
 
         //check if this loaction already exists
-        const exists = await SavedLocation.exists({ city, country });
+        const exists = await SavedLocation.exists({
+            city,
+            country,
+            userId: req.user._id,
+        });
 
         //if exists or doesnt exist
         if (exists) {

@@ -7,30 +7,35 @@ import SavedLocationsPage from './components/SavedLocationsPage';
 import { ForecastContextProvider } from '../Context/ForecastContext';
 import { RouterContextProvider } from '../Context/RouterContext';
 import { SavedLocationsContextProvider } from '../Context/SavedLocationsContext';
+import { SearchContextProvider } from '../Context/SearchContext';
 
 function App() {
     return (
-        <AuthContextProvider>
-            <RouterContextProvider
-                Routes={{
-                    '/': (
-                        <ForecastContextProvider>
-                            <>
-                                <Header />
-                                <Homepage />
-                            </>
-                        </ForecastContextProvider>
-                    ),
-                    '/saveLoc': (
-                        <SavedLocationsContextProvider>
-                            <SavedLocationsPage />
-                        </SavedLocationsContextProvider>
-                    ),
+        <div className="bg-[url('./image/background.png')] w-[390px] h-[844px] mx-auto bg-auto bg-center">
+            <AuthContextProvider>
+                <RouterContextProvider
+                    Routes={{
+                        '/': (
+                            <ForecastContextProvider>
+                                <>
+                                    <Header />
+                                    <Homepage />
+                                </>
+                            </ForecastContextProvider>
+                        ),
+                        '/saved-locations': (
+                            <SavedLocationsContextProvider>
+                                <SearchContextProvider>
+                                    <SavedLocationsPage />
+                                </SearchContextProvider>
+                            </SavedLocationsContextProvider>
+                        ),
 
-                    '/auth': <LoginAndSignupPage />,
-                }}
-            ></RouterContextProvider>
-        </AuthContextProvider>
+                        '/auth': <LoginAndSignupPage />,
+                    }}
+                ></RouterContextProvider>
+            </AuthContextProvider>
+        </div>
     );
 }
 

@@ -4,7 +4,7 @@ const RouterContext = createContext<RouterContext | undefined>(undefined);
 
 interface RouterContext {
     route: string;
-    setRoute: (route: string) => void;
+    setRoute: (route: string, query?: Record<string, string>) => void;
 }
 
 export function RouterContextProvider(props: {
@@ -12,9 +12,14 @@ export function RouterContextProvider(props: {
 }) {
     const [route, setRoute] = useState(window.location.pathname);
 
-    const changeRoute = (route: string) => {
+    const changeRoute = (route: string, query?: Record<string, string>) => {
+        const queryUrl = new URLSearchParams(query).toString();
         setRoute(route);
-        window.history.pushState(null, '', route); //backward button gets active
+        window.history.pushState(
+            null,
+            '',
+            `${route}${queryUrl ? '?' : ''}${queryUrl}`
+        ); //backward button gets active
     };
 
     useEffect(() => {

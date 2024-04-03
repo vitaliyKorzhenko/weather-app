@@ -8,31 +8,24 @@ const AuthContext = createContext<Auth | undefined>(undefined);
 
 export function AuthContextProvider(props: { children: React.JSX.Element }) {
     const [user, setUser] = useState<string | null>(null);
-    const [userIsLoading, setUserIsLoading] = useState(false);
+    const [userIsLoading] = useState(false);
     const [error, setError] = useState<string | null>();
-
-    const loadUser = useCallback(async () => {
-        setUserIsLoading(true);
-        try {
-            //const user = await getUser();
-            setUser(user);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setUserIsLoading(false);
-        }
-    }, []);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (token) {
-            loadUser();
+            axios.defaults.headers.authorization = `Bearer ${token}`;
+            const decodedPayloadtoken = jwtDecode(token); //payload: //{email: yalo@ukr.net, iat:123455, exp: 134556}
+            const currentUser = (decodedPayloadtoken as any).email;
+            setUser(currentUser);
         }
     }, []);
 
     const setSession = useCallback(async (token: string) => {
         try {
-            axios.defaults.headers.authorizarion = `Bearer ${token}`;
+            sessionStorage.setItem('token', token);
+
+            axios.defaults.headers.authorization = `Bearer ${token}`;
 
             const decodedPayloadtoken = jwtDecode(token); //payload: //{email: yalo@ukr.net, iat:123455, exp: 134556}
             const currentUser = (decodedPayloadtoken as any).email;
@@ -50,16 +43,26 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
     }, []);
 
     const loginHandler = useCallback(
-        async (email: string, password: string) => {
+        async (
+            email: string,
+            password: string,
+            callback: (error: string | null) => void
+        ) => {
             try {
+                sessionStorage.removeItem('token');
+                axios.defaults.headers.token = null;
+                console.log(axios.defaults.headers.token);
+
                 const token = await login(email, password);
 
                 await setSession(token);
+                callback(null);
+                setError('');
             } catch (error) {
                 const errorText = (error as AxiosError)!.response!
                     .data as string;
-
                 setError(errorText);
+                callback(errorText);
             }
         },
         []
@@ -71,6 +74,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
                 const token = await signup(email, password);
 
                 await setSession(token);
+                setError('');
             } catch (error) {
                 const errorText = (error as AxiosError)!.response!
                     .data as string;
@@ -81,12 +85,14 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
         []
     );
 
-    const logoutHandler = useCallback(async () => {
+    const logoutHandler = useCallback(async (callback: () => void) => {
         await logOut();
         sessionStorage.removeItem('token');
         axios.defaults.headers.token = null;
 
         setUser(null);
+        callback();
+        setError('');
     }, []);
 
     const deleteHandler = useCallback(async () => {
@@ -97,6 +103,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
 
         setUser(null);
     }, []);
+
     if (userIsLoading) return <h1>user is loading</h1>;
 
     return (

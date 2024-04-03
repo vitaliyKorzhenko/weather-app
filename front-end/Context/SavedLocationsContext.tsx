@@ -1,7 +1,12 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { getLocations, deleteLocation } from '../src/utils/locationsApi';
+import {
+    getLocations,
+    deleteLocation,
+    addLocation,
+} from '../src/utils/locationsApi';
 import { Location } from '../src/types/Location';
 import { LocationContextTypes } from '../src/types/LocationContextTypes';
+import { LocationItem } from '../src/types/LocationItem';
 
 const SavedLocationsContext = createContext<LocationContextTypes | undefined>(
     undefined
@@ -23,10 +28,10 @@ export function SavedLocationsContextProvider(props: {
         setLocations(locations);
     }, []);
 
-    // const addLocationHandler = useCallback(async (location: string) => {
-    //     await addLocation(location);
-    //     updateLocationsHandler();
-    // }, []);
+    const addLocationHandler = useCallback(async (item: LocationItem) => {
+        await addLocation(item);
+        updateLocationsHandler();
+    }, []);
 
     const deleteLocationHandler = useCallback(async (id: string) => {
         await deleteLocation(id);
@@ -39,6 +44,7 @@ export function SavedLocationsContextProvider(props: {
                 locations,
                 updateLocationsHandler,
                 deleteLocationHandler,
+                addLocationHandler,
             }}
         >
             {props.children}

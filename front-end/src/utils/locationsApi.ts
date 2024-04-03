@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { LocationItem } from '../types/LocationItem';
 
 export const getLocations = async () => {
     const { data: locations } = await axios.get('locations');
@@ -12,22 +13,10 @@ export const findLocations = async (location: string) => {
     return locationsCoordinates;
 };
 
-export const addLocation = async (
-    city: string,
-    country: string,
-    latitude: number,
-    longitude: number
-) => {
-    const newLocation = {
-        city,
-        country,
-        latitude,
-        longitude,
-    };
-
-    await axios.post('locations', newLocation);
+export const addLocation = async (item: LocationItem) => {
+    await axios.post('locations', item);
 };
 
 export const deleteLocation = async (_id: string) => {
-    await axios.delete(`location/${_id}`);
+    await axios.delete(`locations/${_id}`);
 };

@@ -33,7 +33,7 @@ router.get(
             return res.send({ errors: result.array() });
         }
 
-        let lat, long, city, country;
+        let latitude, longitude, city, country;
         if (req.query.name) {
             log.info('geocoding request');
             const {
@@ -42,8 +42,8 @@ router.get(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${req.query.name}`
             );
 
-            lat = latLong[0].latitude;
-            long = latLong[0].longitude;
+            latitude = latLong[0].latitude;
+            longitude = latLong[0].longitude;
             city = latLong[0].name;
             country = latLong[0].country;
 
@@ -51,12 +51,12 @@ router.get(
         } else {
             const apikey = process.env.GEO_API_CODE;
             //reverse geocoding;
-            lat = req.query.latitude;
-            long = req.query.longitude;
+            latitude = req.query.latitude;
+            longitude = req.query.longitude;
 
             log.info('reverse geocoding request');
             const { data } = await axios.get(
-                `https://geocode.xyz/${lat},${long}?json=1&auth=${apikey}`
+                `https://geocode.xyz/${latitude},${longitude}?json=1&auth=${apikey}`
             );
             city = data.city;
             country = data.country;
@@ -68,10 +68,10 @@ router.get(
         const [{ data: weatherDetails }, { data: airQuality }] =
             await Promise.all([
                 axios.get(
-                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,showers,snowfall,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_min,sunrise,sunset,uv_index_max,precipitation_probability_max&timezone=auto`
+                    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,showers,snowfall,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_min,sunrise,sunset,uv_index_max,precipitation_probability_max&timezone=auto`
                 ),
                 axios.get(
-                    `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${long}&current=european_aqi,us_aqi,uv_index&timezone=auto&forecast_days=7`
+                    `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,us_aqi,uv_index&timezone=auto&forecast_days=7`
                 ),
             ]);
 
@@ -134,8 +134,8 @@ router.get(
                     ],
                 city,
                 country,
-                lat,
-                long,
+                latitude,
+                longitude,
             };
             return currentObj;
         }
