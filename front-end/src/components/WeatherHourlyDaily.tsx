@@ -18,12 +18,22 @@ function WeatherHourlyDaily() {
     //console.log(forecast!.daily[0].time);
     return (
         <div>
-            <div>
-                <button onClick={setHourly}>Hourly Forecast</button>
-                <button onClick={setWeekly}>Weekly Forecast</button>
+            <div className="flex justify-around w-[390px] h-[49px] shrink-0">
+                <button
+                    onClick={setHourly}
+                    className="text-Label-Color-Dark-Secondary font-sans text-[15px] not-italic font-semibold leading-5 tracking-[.5px]"
+                >
+                    Hourly Forecast
+                </button>
+                <button
+                    onClick={setWeekly}
+                    className="text-Label-Color-Dark-Secondary font-sans text-[15px] not-italic font-semibold leading-5 tracking-[.5px]"
+                >
+                    Weekly Forecast
+                </button>
             </div>
 
-            <div>
+            <div className="flex overflow-x-scroll scrollbar-hide">
                 {forecast![hourlyDaily].map((item, index) => {
                     return (
                         <WeatherNowTodayCard

@@ -76,10 +76,13 @@ router.get(
             ]);
 
         function dailyHourlyInfo(obj, number) {
-            const obj24 = obj.time.slice(
-                number ? new Date(weatherDetails.current.time).getHours() : 0,
-                number
-            ); //array of times
+            const obj24 = number
+                ? obj.time.splice(
+                      new Date(weatherDetails.current.time).getHours(),
+                      number
+                  )
+                : obj.time;
+            //array of times
 
             log.info('Daily and Hourly forecast received');
 
@@ -100,8 +103,6 @@ router.get(
                 };
             });
         }
-
-        console.log(weatherDetails.daily.time);
 
         function currentInfo(obj) {
             log.info('Current forecast received');

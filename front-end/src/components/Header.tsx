@@ -6,7 +6,7 @@ function Header() {
     const auth = useContext(AuthContext);
     const router = useContext(RouterContext);
     return (
-        <div className="flex flex-row items-end justify-end gap-[12px] mr-[5px]">
+        <div className="flex flex-row items-end gap-[12px] mr-[5px]">
             {!auth?.user && (
                 <button
                     onClick={() => router?.setRoute('/auth')}

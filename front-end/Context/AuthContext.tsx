@@ -50,7 +50,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
         ) => {
             try {
                 sessionStorage.removeItem('token');
-                axios.defaults.headers.token = null;
+                axios.defaults.headers.authorization = null;
                 console.log(axios.defaults.headers.token);
 
                 const token = await login(email, password);

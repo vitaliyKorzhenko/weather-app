@@ -18,14 +18,8 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
     }
 
     return (
-        <div
-            className={
-                isHighlighted()
-                    ? ' border-red-700 border-2'
-                    : ' border-red-200 border-2'
-            }
-        >
-            <div>
+        <div className="flex w-[60px] py-[16px] px-[8px] flex-col justify-center items-center gap-4 rounded-[30px] border border-white-opacity-20 bg-purple-opacity-20 box-shadow-custom-box-shadow-hourly-daily">
+            <div className="">
                 {props['hourlyDaily'] === 'daily'
                     ? findDay(time.getDay()).slice(0, 3).toUpperCase()
                     : amPmTime(time)}

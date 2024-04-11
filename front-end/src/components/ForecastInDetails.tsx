@@ -14,34 +14,35 @@ function ForecastInDetails() {
     return (
         <div>
             <WeatherHourlyDaily />
-
-            <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
-                <AirQuality />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="UV INDEX" icon="">
-                <UvIndex />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="SUNRISE   " icon="">
-                <Sunrise />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="WIND" icon="">
-                <Wind />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="RAINFALL" icon="">
-                <Rainfall />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="FEELS LIKE" icon="">
-                <FeelsLike />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="HUMIDITY" icon="">
-                <Humidity />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="VISIBILITY" icon="">
-                <Visibility />
-            </WeatherInfoCardBorderAndTitle>
-            <WeatherInfoCardBorderAndTitle title="PRESSURE" icon="">
-                <Pressure />
-            </WeatherInfoCardBorderAndTitle>
+            <div className="hidden">
+                <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
+                    <AirQuality />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="UV INDEX" icon="">
+                    <UvIndex />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="SUNRISE   " icon="">
+                    <Sunrise />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="WIND" icon="">
+                    <Wind />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="RAINFALL" icon="">
+                    <Rainfall />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="FEELS LIKE" icon="">
+                    <FeelsLike />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="HUMIDITY" icon="">
+                    <Humidity />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="VISIBILITY" icon="">
+                    <Visibility />
+                </WeatherInfoCardBorderAndTitle>
+                <WeatherInfoCardBorderAndTitle title="PRESSURE" icon="">
+                    <Pressure />
+                </WeatherInfoCardBorderAndTitle>
+            </div>
         </div>
     );
 }
