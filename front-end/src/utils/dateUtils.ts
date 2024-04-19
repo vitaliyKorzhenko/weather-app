@@ -31,7 +31,21 @@ export function findMonth(number: number) {
     return months[number];
 }
 
+// export function amPmTime(time: Date) {
+//     return new Intl.DateTimeFormat(navigator.language, {
+//         timeStyle: 'short',
+//     })
+//         .format(time)
+//         .replace(/:\d{2}/, ''); // format returns a string => "04:45 AM" after regex it returns "4 AM"
+// }
+
 export function amPmTime(time: Date) {
+    if (
+        time.getHours() === new Date().getHours() &&
+        time.getDate() === new Date().getDate()
+    ) {
+        return 'Now';
+    }
     return new Intl.DateTimeFormat(navigator.language, {
         timeStyle: 'short',
     })
@@ -44,3 +58,5 @@ export function parseISOLocal(time: string) {
 
     return new Date(b[0], b[1] - 1, b[2], b[3] ?? 0, b[4] ?? 0); //
 }
+
+//console.log(amPmTime(new Date()));

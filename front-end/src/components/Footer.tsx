@@ -3,11 +3,11 @@ import UtilityButtons from './UtilityButtons';
 
 function Footer() {
     return (
-        <div className="bg-[url('./image/Forecast=Hourly.svg')] w-full overflow-scroll pb-[35px]  bg-no-repeat">
-            {/* <div className="bg-[url('./image/House.png')] w-[50%] h-[50%] object-contain bg-center absolute"></div> */}
-
-            <ForecastInDetails />
-            <UtilityButtons />
+        <div className="bg-gradient-to-b from-[rgba(46,51,90,0.40)] to-[rgba(28,27,51,0.40)] backdrop-blur-xl rounded-t-[44px] w-full overflow-scroll">
+            <div className=" bg-[url('./image/SegmentedControl.svg')] bg-no-repeat w-full h-full ">
+                <ForecastInDetails />
+                <UtilityButtons />
+            </div>
         </div>
     );
 }
