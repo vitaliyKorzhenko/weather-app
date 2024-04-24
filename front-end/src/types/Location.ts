@@ -8,4 +8,7 @@ export interface Location {
     latitude: number;
     longitude: number;
     id: string;
+    sunrise: string;
+    sunset: string;
+    time: string;
 }

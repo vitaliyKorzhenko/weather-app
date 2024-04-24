@@ -6,7 +6,7 @@ import SearchContext from '../../Context/SearchContext';
 import RouterContext from '../../Context/RouterContext';
 
 function SavedLocationsPage() {
-    const context = useContext(SavedLocationsContext);
+    const savedLocation = useContext(SavedLocationsContext);
 
     const searchContext = useContext(SearchContext);
 
@@ -25,7 +25,7 @@ function SavedLocationsPage() {
             </div>
 
             <input
-                className="mt-1 px-3 w-[100%] rounded-md text-sm outline-none flex self-center bg-gradient-to-br from-[rgba(46,51,90,0.26)] to-[rgba(28,27,51,0.26)] shadow-custom-search "
+                className="mt-1 px-3 w-[100%] h-[27px] rounded-md text-sm outline-none flex self-center bg-gradient-to-br from-[#2E335A] to-[#1C1B33] shadow-custom-search "
                 type="text"
                 placeholder="Search for a city"
                 value={searchContext?.inputText}
@@ -39,7 +39,7 @@ function SavedLocationsPage() {
                     <FoundLocationResults key={index} item={item} />
                 ))}
 
-                {context?.locations.map((item, index) => (
+                {savedLocation?.locations.map((item, index) => (
                     <SavedLocationCard key={index} item={item} />
                 ))}
             </div>

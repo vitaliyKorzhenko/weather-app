@@ -14,7 +14,7 @@ function ForecastInDetails() {
     return (
         <div>
             <WeatherHourlyDaily />
-            <div className="hidden">
+            <div className="h-0 truncate">
                 <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
                     <AirQuality />
                 </WeatherInfoCardBorderAndTitle>

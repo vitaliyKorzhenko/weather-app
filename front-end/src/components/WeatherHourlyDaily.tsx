@@ -18,7 +18,7 @@ function WeatherHourlyDaily() {
 
     return (
         <div>
-            <div className="flex justify-around w-[390px] h-[49px] shrink-0">
+            <div className="flex justify-around w-[390px] h-[49px] shrink-0 border-b-[1px] border-[#FFF] border-opacity-30">
                 <button
                     onClick={setHourly}
                     className="text-Label-Color-Dark-Secondary font-sans-text text-[15px] not-italic font-semibold leading-5 tracking-[.5px] mt-[24px] mb-[5px]"

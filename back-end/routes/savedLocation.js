@@ -34,6 +34,7 @@ router.get('/', async function (req, res) {
             );
             function currentInfo(obj) {
                 const currentObj = {
+                    time: obj.time,
                     temperature: obj['temperature_2m'],
                     temp_low: weatherDetails.daily['temperature_2m_min'][0],
                     temp_high: weatherDetails.daily['temperature_2m_max'][0],
@@ -43,6 +44,8 @@ router.get('/', async function (req, res) {
                     latitude: item.latitude,
                     longitude: item.longitude,
                     id: item._id,
+                    sunrise: weatherDetails.daily.sunrise[0],
+                    sunset: weatherDetails.daily.sunset[0],
                 };
                 log.info(
                     'Created current forecast object for each saved location'

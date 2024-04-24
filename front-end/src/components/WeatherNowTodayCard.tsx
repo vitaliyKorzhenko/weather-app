@@ -18,10 +18,6 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
             : time.getDay() === new Date().getDay();
     }
 
-    // const backgroundColor = isHighlighted()
-    //     ? 'bg-solid-purple'
-    //     : 'bg-transparent';
-
     return (
         <div
             className={clsx(

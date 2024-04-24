@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { findDay, findMonth } from '../utils/dateUtils';
 import ForecastContext from '../../Context/ForecastContext';
+import { weatherCodeInfo } from '../utils/descriptions';
 
 function UpperInfo() {
     const forecast = useContext(ForecastContext);
@@ -20,7 +21,14 @@ function UpperInfo() {
             </div>
             <div className="flex flex-col">
                 <div className="text-[#EBEBF599] text-center font-sans-display text-[20px] not-italic font-semibold leading-6 tracking-[.38px]">
-                    Mostly Clear: {forecast!.current.weather_code}
+                    {
+                        weatherCodeInfo(
+                            forecast!.current.time,
+                            forecast!.current.weather_code,
+                            forecast!.current.sunrise,
+                            forecast!.current.sunset
+                        ).description
+                    }
                 </div>
                 <div className="flex flex-row text-Label-Dark-Primary font-sans-display text-[20px] font-semibold leading-6 tracking-[.38px] justify-around">
                     <div>H:{forecast!.current.temp_high}°</div>
