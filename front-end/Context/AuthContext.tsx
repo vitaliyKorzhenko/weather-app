@@ -69,17 +69,23 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
     );
 
     const signupHandler = useCallback(
-        async (email: string, password: string) => {
+        async (
+            email: string,
+            password: string,
+            callback: (error: string | null) => void
+        ) => {
             try {
                 const token = await signup(email, password);
 
                 await setSession(token);
+                callback(null);
                 setError('');
             } catch (error) {
                 const errorText = (error as AxiosError)!.response!
                     .data as string;
 
                 setError(errorText);
+                callback(errorText);
             }
         },
         []

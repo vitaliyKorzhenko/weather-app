@@ -1,6 +1,7 @@
 import { findDay, amPmTime, parseISOLocal } from '../utils/dateUtils';
 import { DailyHourly } from '../types/Forecast';
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 
 type WeatherNowTodayCardProps = {
     hourlyDaily: 'hourly' | 'daily';

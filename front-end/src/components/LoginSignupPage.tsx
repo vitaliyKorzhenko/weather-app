@@ -10,7 +10,7 @@ function LoginAndSignupPage() {
     const [password, setPassword] = useState<string>('');
 
     const homePageCallback = (error: string | null) => {
-        console.log('entered useEffect');
+        //console.log('entered useEffect');
         if (!error) {
             console.log(error);
             route?.setRoute('/');
@@ -19,7 +19,7 @@ function LoginAndSignupPage() {
         // if (!auth?.error && auth?.user) {
         //     route?.setRoute('/');
         // }
-        console.log(auth?.user);
+        //console.log(auth?.user);
     };
 
     return (
@@ -64,7 +64,7 @@ function LoginAndSignupPage() {
                     className="border border-white rounded w-full text-white hover:bg-sky-700 hover:scale-125 duration-300 transition-all disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:pointer-events-none"
                     onClick={(event) => {
                         event.preventDefault();
-                        auth?.signupHandler(email, password);
+                        auth?.signupHandler(email, password, homePageCallback);
                     }}
                     disabled={email === '' || password === ''}
                 >

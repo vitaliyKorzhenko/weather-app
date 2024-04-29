@@ -35,9 +35,13 @@ router.get('/', async function (req, res) {
             function currentInfo(obj) {
                 const currentObj = {
                     time: obj.time,
-                    temperature: obj['temperature_2m'],
-                    temp_low: weatherDetails.daily['temperature_2m_min'][0],
-                    temp_high: weatherDetails.daily['temperature_2m_max'][0],
+                    temperature: Math.round(obj['temperature_2m']),
+                    temp_low: Math.round(
+                        weatherDetails.daily['temperature_2m_min'][0]
+                    ),
+                    temp_high: Math.round(
+                        weatherDetails.daily['temperature_2m_max'][0]
+                    ),
                     weather_code: obj.weather_code,
                     city: item.city,
                     country: item.country,

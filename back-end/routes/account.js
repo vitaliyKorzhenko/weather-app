@@ -21,6 +21,20 @@ const validatePassword = () =>
         })
         .withMessage('Your password doesnt meet the requirements');
 
+const createNewToken = async (email, userId) => {
+    const token = jwt.sign(
+        //only here we get our token for the first time
+        { email },
+        process.env.JWTSECRET,
+        {
+            expiresIn: '60 days',
+        }
+    ); //{email: yalo@ukr.net, iat:123455, exp: 134556}
+
+    await Token.create({ token, userId, loggedin: true });
+    return token;
+};
+
 router.post(
     '/create', //doesnt give me any token yet
     validateEmail(),
@@ -52,7 +66,9 @@ router.post(
 
         log.info('You have seccussfully created an account');
 
-        res.end('You have seccussfully created an account');
+        const token = await createNewToken(user.email, user._id);
+
+        res.end(token);
     }
 );
 
@@ -106,16 +122,10 @@ router.post(
             return;
         }
 
-        const token = jwt.sign(
-            //only here we get out token for the first time
-            { email: existingUser.email },
-            process.env.JWTSECRET,
-            {
-                expiresIn: '60 days',
-            }
-        ); //{email: yalo@ukr.net, iat:123455, exp: 134556}
-
-        await Token.create({ token, userId: existingUser._id, loggedin: true });
+        const token = await createNewToken(
+            existingUser.email,
+            existingUser._id
+        );
 
         log.info('User is successfully logged in');
 

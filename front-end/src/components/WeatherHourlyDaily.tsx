@@ -39,7 +39,7 @@ function WeatherHourlyDaily() {
                 </button>
             </div>
 
-            <div className="flex overflow-x-scroll scrollbar-hide ml-[20px] pt-[19px] pb-[10px] h-[176px] gap-[12px]">
+            <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-hide ml-[20px] pt-[19px] pb-[10px] h-[176px] gap-[12px]">
                 {forecast![hourlyDaily].map((item, index) => {
                     return (
                         <WeatherNowTodayCard

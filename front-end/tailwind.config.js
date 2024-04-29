@@ -9,6 +9,8 @@ export default {
                 'Label-Dark-Primary': '#FFF',
                 'Label-Color-Dark-Secondary': 'rgba(235, 235, 245, 0.60)',
                 'precipitation-probability': '#40CBD8',
+                'purple-opacity-20': 'rgba(72, 49, 157, 0.20)',
+                'hight-low-saved-location': 'rgba(235, 235, 245, 0.60)',
             },
         },
         boxShadow: {
@@ -16,9 +18,9 @@ export default {
                 '1px 1px 0px 0px rgba(255, 255, 255, 0.25) inset, 5px 4px 10px 0px rgba(0, 0, 0, 0.25)',
             'custom-search': '0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset',
         },
-        backgroundColor: {
-            'purple-opacity-20': 'rgba(72, 49, 157, 0.20)',
-        },
+        // backgroundColor: {
+        //     'purple-opacity-20': 'rgba(72, 49, 157, 0.20)',
+        // },
         borderColor: {
             'white-opacity-20': 'rgba(255, 255, 255, 0.20)',
         },

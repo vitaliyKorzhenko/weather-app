@@ -8,6 +8,10 @@ export interface Auth {
         callback: (error: string | null) => void
     ) => Promise<void>;
     logoutHandler: (callback: () => void) => Promise<void>;
-    signupHandler: (email: string, password: string) => Promise<void>;
+    signupHandler: (
+        email: string,
+        password: string,
+        callback: (error: string | null) => void
+    ) => Promise<void>;
     deleteHandler: () => Promise<void>;
 }
