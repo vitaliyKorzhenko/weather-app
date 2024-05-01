@@ -9,16 +9,29 @@ import FeelsLike from './FeelsLike';
 import Humidity from './Humidity';
 import Visibility from './Visibility';
 import Pressure from './Pressure';
+import { useContext } from 'react';
+import { FooterContext } from '../App';
+import clsx from 'clsx';
 
 function ForecastInDetails() {
+    const footer = useContext(FooterContext);
+
     return (
         <div>
             <WeatherHourlyDaily />
-            <div className="h-0 truncate">
+            <div
+                className={clsx(
+                    !footer!.state && 'opacity-0',
+                    'grid gap-2 grid-cols-2 justify-center'
+                )}
+            >
                 <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
                     <AirQuality />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="UV INDEX" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="UV INDEX"
+                    icon="./image/weather-icons/uv-index.svg"
+                >
                     <UvIndex />
                 </WeatherInfoCardBorderAndTitle>
                 <WeatherInfoCardBorderAndTitle title="SUNRISE   " icon="">

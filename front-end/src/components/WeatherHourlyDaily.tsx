@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import WeatherNowTodayCard from './WeatherNowTodayCard';
 import ForecastContext from '../../Context/ForecastContext';
+import clsx from 'clsx';
 
 function WeatherHourlyDaily() {
     const forecast = useContext(ForecastContext);
@@ -18,24 +19,32 @@ function WeatherHourlyDaily() {
 
     return (
         <div>
-            <div className="flex justify-around w-[390px] h-[49px] shrink-0 border-b-[1px] border-[#FFF] border-opacity-30">
+            <div className="flex justify-around w-[390px] shrink-0 border-b-[1px] border-[#FFF] border-opacity-30">
                 <button
                     onClick={setHourly}
-                    className="text-Label-Color-Dark-Secondary font-sans-text text-[15px] not-italic font-semibold leading-5 tracking-[.5px] mt-[24px] mb-[5px]"
+                    className="text-Label-Color-Dark-Secondary font-sans-text text-[15px] not-italic font-semibold leading-5 tracking-[.5px] mb-[-4px]"
                 >
                     Hourly Forecast
-                    {hourlyDaily === 'hourly' && (
-                        <div className="w-full h-[3px] bg-gradient-to-r from-transparent via-white to-transparent bg-blend-overlay my-[3px]"></div>
-                    )}
+                    <div
+                        className={clsx(
+                            'w-full h-[3px] my-[2px]',
+                            hourlyDaily === 'hourly' &&
+                                'bg-gradient-to-r from-transparent via-white to-transparent bg-blend-overlay'
+                        )}
+                    ></div>
                 </button>
                 <button
                     onClick={setWeekly}
-                    className="text-Label-Color-Dark-Secondary font-sans-text text-[15px] not-italic font-semibold leading-5 tracking-[.5px] mt-[24px] mb-[5px]"
+                    className="text-Label-Color-Dark-Secondary font-sans-text text-[15px] not-italic font-semibold leading-5 tracking-[.5px] mb-[-4px]"
                 >
                     Weekly Forecast
-                    {hourlyDaily === 'daily' && (
-                        <div className="w-full h-[3px] bg-gradient-to-r from-transparent via-white to-transparent bg-blend-overlay my-[3px]"></div>
-                    )}
+                    <div
+                        className={clsx(
+                            'w-full h-[3px] my-[2px]',
+                            hourlyDaily === 'daily' &&
+                                'bg-gradient-to-r from-transparent via-white to-transparent bg-blend-overlay'
+                        )}
+                    ></div>
                 </button>
             </div>
 

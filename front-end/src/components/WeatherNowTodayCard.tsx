@@ -1,7 +1,7 @@
 import { findDay, amPmTime, parseISOLocal } from '../utils/dateUtils';
 import { DailyHourly } from '../types/Forecast';
 import { clsx } from 'clsx';
-import { motion } from 'framer-motion';
+import { weatherCodeInfo } from '../utils/descriptions';
 
 type WeatherNowTodayCardProps = {
     hourlyDaily: 'hourly' | 'daily';
@@ -11,6 +11,12 @@ type WeatherNowTodayCardProps = {
 function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
     const time = parseISOLocal(props.item.time); //props.item.time = "2024-03-14T00:00"
 
+    const getWeatherInfoAndIcon = weatherCodeInfo(
+        props.item.time,
+        props.item.weather_code,
+        props.item.sunrise,
+        props.item.sunset
+    );
     //console.log(time.getHours());
 
     function isHighlighted() {
@@ -33,9 +39,12 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
             </div>
 
             <div className="py-[16px]">
-                <div className="text-precipitation-probability">
-                    {props.item.weather_code}
-                </div>
+                <div
+                    className="bg-contain bg-center w-[32px] h-[32px]"
+                    style={{
+                        backgroundImage: `url(${getWeatherInfoAndIcon.image})`,
+                    }}
+                ></div>
                 {props.item.precipitation_probability && (
                     <div className="text-precipitation-probability">
                         {props.item.precipitation_probability}

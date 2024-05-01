@@ -8,6 +8,31 @@ import { SavedLocationsContextProvider } from '../Context/SavedLocationsContext'
 import { SearchContextProvider } from '../Context/SearchContext';
 import UpperInfo from './components/UpperInfo';
 import Footer from './components/Footer';
+import UtilityButtons from './components/UtilityButtons';
+import { createContext, useState } from 'react';
+
+export const FooterContext = createContext<
+    | {
+          state: boolean;
+          setState: React.Dispatch<React.SetStateAction<boolean>>;
+      }
+    | undefined
+>(undefined);
+
+function FooterContextProvider(props: { children: React.JSX.Element }) {
+    const [state, setState] = useState<boolean>(false);
+
+    return (
+        <FooterContext.Provider
+            value={{
+                state,
+                setState,
+            }}
+        >
+            {props.children}
+        </FooterContext.Provider>
+    );
+}
 
 function App() {
     return (
@@ -21,7 +46,12 @@ function App() {
                                     <Header />
                                     <UpperInfo />
 
-                                    <Footer />
+                                    <FooterContextProvider>
+                                        <>
+                                            <Footer />
+                                            <UtilityButtons />
+                                        </>
+                                    </FooterContextProvider>
                                 </>
                             </ForecastContextProvider>
                         ),

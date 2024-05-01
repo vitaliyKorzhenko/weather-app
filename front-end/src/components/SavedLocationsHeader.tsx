@@ -17,16 +17,20 @@ function SavedLocationsHeader() {
                 </div>
             </div>
 
-            <input
-                className="mt-1 px-3 w-[100%] h-[27px] rounded-md text-sm outline-none flex self-center bg-gradient-to-br from-[#2E335A] to-[#1C1B33] shadow-custom-search "
-                type="text"
-                placeholder="Search for a city"
-                value={searchContext?.inputText}
-                onChange={async (event) => {
-                    //console.log(inputText);
-                    searchContext?.setInputText(event.target.value);
-                }}
-            />
+            <div className="relative flex items-center">
+                <div className="bg-[url('./images/icon-magnifyingglass.svg')] w-[15px] h-[15px] absolute ml-[5px] mt-[3px]"></div>
+
+                <input
+                    className=" mt-1 pl-[25px] w-[100%] h-[27px] rounded-md text-sm outline-none  bg-gradient-to-br from-[#2E335A] to-[#1C1B33] shadow-custom-search text-white"
+                    type="text"
+                    placeholder="Search for a city"
+                    value={searchContext?.inputText}
+                    onChange={async (event) => {
+                        //console.log(inputText);
+                        searchContext?.setInputText(event.target.value);
+                    }}
+                />
+            </div>
 
             <div className=""></div>
         </div>

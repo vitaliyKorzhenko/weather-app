@@ -100,6 +100,8 @@ router.get(
                             obj['precipitation_probability_max'])[index]
                     ),
                     weather_code: obj['weather_code'][index],
+                    sunrise: weatherDetails.daily['sunrise'][0],
+                    sunset: weatherDetails.daily['sunset'][0],
                 };
             });
         }

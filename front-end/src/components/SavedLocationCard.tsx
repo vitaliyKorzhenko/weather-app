@@ -41,7 +41,7 @@ function SavedLocationCard({ item }: { item: Location }) {
                 </div>
             </div>
 
-            <div className="flex flex-col mr-[20px] mt-[20px]">
+            <div className="flex flex-col mr-[20px] mt-[20px] items-end">
                 <div className="flex items-center justify-center overflow-hidden min-h-[120px] w-[120px] translate-x-5 -translate-y-8">
                     <div
                         className="min-w-[160px] min-h-[160px] bg-cover bg-no-repeat"
@@ -56,18 +56,20 @@ function SavedLocationCard({ item }: { item: Location }) {
                     </div>
                 </div>
 
-                <div className="text-[#FFF] font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]">
-                    {getWeatherInfoAndIcon.description}
+                <div className="w-[100px] flex flex-col items-end gap-4">
+                    <div className="text-[#FFF] font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]">
+                        {getWeatherInfoAndIcon.description}
+                    </div>
+                    <button
+                        className="text-red-500 font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            savedLocations?.deleteLocationHandler(item.id);
+                        }}
+                    >
+                        x
+                    </button>
                 </div>
-                <button
-                    className="text-[#FFF] font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        savedLocations?.deleteLocationHandler(item.id);
-                    }}
-                >
-                    Delete
-                </button>
             </div>
         </div>
     );

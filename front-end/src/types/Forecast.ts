@@ -34,5 +34,6 @@ export interface DailyHourly {
     temperature: number;
     precipitation_probability: number;
     weather_code: number;
-    visibility: number;
+    sunrise: string;
+    sunset: string;
 }

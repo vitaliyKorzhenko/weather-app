@@ -3,7 +3,7 @@ import React from 'react';
 type WeatherInfoCardBorderAndTitleProps = {
     children: React.JSX.Element;
     title: string;
-    icon: React.JSX.Element;
+    icon: string;
 };
 
 function WeatherInfoCardBorderAndTitle({
@@ -12,10 +12,20 @@ function WeatherInfoCardBorderAndTitle({
     icon,
 }: WeatherInfoCardBorderAndTitleProps) {
     return (
-        <div>
-            <div>
-                <div>{icon}</div>
-                <div>{title}</div>
+        <div
+            className="border-[#5a4dae] border-2 rounded-2xl bg-[#2b2753] w-[164px] h-[164px] p-[16px]
+        "
+        >
+            <div className="flex flex-row gap-1 items-center">
+                <div
+                    className="w-[20px] h-[20px] bg-contain bg-center grayscale bg-no-repeat"
+                    style={{
+                        backgroundImage: `url(${icon})`,
+                    }}
+                ></div>
+                <div className="text-[10px] font-sans-text text-[#a2a2a7]">
+                    {title}
+                </div>
             </div>
             <div>{children}</div>
         </div>
