@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import RouterContext from '../../Context/RouterContext';
 import { FooterContext } from '../App';
 import clsx from 'clsx';
+import ForecastContext from '../../Context/ForecastContext';
 
 function UtilityButtons() {
-    const route = useContext(RouterContext);
+    const router = useContext(RouterContext);
     const footer = useContext(FooterContext);
+    const forecast = useContext(ForecastContext);
 
     return (
         <div
@@ -15,7 +17,15 @@ function UtilityButtons() {
             )}
         >
             <div className="bg-[url('./image/TabBar.svg')] flex w-full h-[100px] justify-around items-center bg-no-repeat">
-                <button className="bg-[url('./image/SymbolGPS.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat"></button>
+                <button
+                    className="bg-[url('./image/SymbolGPS.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat"
+                    onClick={() => {
+                        router?.setRoute('/map', {
+                            latitude: forecast!.current.latitude.toString(),
+                            longitude: forecast!.current.longitude.toString(),
+                        });
+                    }}
+                ></button>
                 <button
                     className="bg-[url('./image/Button.svg')] w-[66px] h-[66px] flex shrink-0  bg-center bg-no-repeat"
                     style={{
@@ -23,7 +33,7 @@ function UtilityButtons() {
                     }}
                 ></button>
                 <button
-                    onClick={() => route!.setRoute('/saved-locations')}
+                    onClick={() => router!.setRoute('/saved-locations')}
                     className="bg-[url('./image/ListSymbol.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat"
                 ></button>
             </div>

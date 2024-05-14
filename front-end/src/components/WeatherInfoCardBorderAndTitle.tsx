@@ -13,7 +13,7 @@ function WeatherInfoCardBorderAndTitle({
 }: WeatherInfoCardBorderAndTitleProps) {
     return (
         <div
-            className="border-[#5a4dae] border-2 rounded-2xl bg-[#2b2753] w-[164px] h-[164px] p-[16px]
+            className="border-[#5a4dae] border-2 rounded-2xl bg-[#2b2753] w-[164px] h-[164px] p-[16px] m-auto
         "
         >
             <div className="flex flex-row gap-1 items-center">

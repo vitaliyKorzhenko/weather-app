@@ -40,6 +40,15 @@ function SavedLocationCard({ item }: { item: Location }) {
                     <div className="text-[#FFF] font-sans-text text-[17px] leading-[22px] tracking-[-0.408px]">{`${item.city}, ${item.country}`}</div>
                 </div>
             </div>
+            <button
+                className="text-red-500 font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]"
+                onClick={(event) => {
+                    event.stopPropagation();
+                    savedLocations?.deleteLocationHandler(item.id);
+                }}
+            >
+                x
+            </button>
 
             <div className="flex flex-col mr-[20px] mt-[20px] items-end">
                 <div className="flex items-center justify-center overflow-hidden min-h-[120px] w-[120px] translate-x-5 -translate-y-8">
@@ -60,15 +69,6 @@ function SavedLocationCard({ item }: { item: Location }) {
                     <div className="text-[#FFF] font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]">
                         {getWeatherInfoAndIcon.description}
                     </div>
-                    <button
-                        className="text-red-500 font-sans-text text-[13px] leading-[18px] tracking-[-0.078px]"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            savedLocations?.deleteLocationHandler(item.id);
-                        }}
-                    >
-                        x
-                    </button>
                 </div>
             </div>
         </div>

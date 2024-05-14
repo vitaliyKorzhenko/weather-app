@@ -22,10 +22,13 @@ function ForecastInDetails() {
             <div
                 className={clsx(
                     !footer!.state && 'opacity-0',
-                    'grid gap-2 grid-cols-2 justify-center'
+                    'grid grid-cols-2 justify-items-center gap-y-1'
                 )}
             >
-                <WeatherInfoCardBorderAndTitle title="AIR QUALITY" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="AIR QUALITY"
+                    icon="./image/weather-icons/air.svg"
+                >
                     <AirQuality />
                 </WeatherInfoCardBorderAndTitle>
                 <WeatherInfoCardBorderAndTitle
@@ -34,25 +37,46 @@ function ForecastInDetails() {
                 >
                     <UvIndex />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="SUNRISE   " icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="SUNRISE   "
+                    icon="./image/weather-icons/sunrise.svg"
+                >
                     <Sunrise />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="WIND" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="WIND"
+                    icon="./image/weather-icons/wind.svg"
+                >
                     <Wind />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="RAINFALL" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="RAINFALL"
+                    icon="./image/weather-icons/raindrops.svg"
+                >
                     <Rainfall />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="FEELS LIKE" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="FEELS LIKE"
+                    icon="./image/weather-icons/thermometer.svg"
+                >
                     <FeelsLike />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="HUMIDITY" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="HUMIDITY"
+                    icon="./image/weather-icons/humidity.svg"
+                >
                     <Humidity />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="VISIBILITY" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="VISIBILITY"
+                    icon="./image/weather-icons/visibility.svg"
+                >
                     <Visibility />
                 </WeatherInfoCardBorderAndTitle>
-                <WeatherInfoCardBorderAndTitle title="PRESSURE" icon="">
+                <WeatherInfoCardBorderAndTitle
+                    title="PRESSURE"
+                    icon="./image/weather-icons/pressure.svg"
+                >
                     <Pressure />
                 </WeatherInfoCardBorderAndTitle>
             </div>

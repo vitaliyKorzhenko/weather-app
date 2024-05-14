@@ -28,7 +28,7 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
     return (
         <div
             className={clsx(
-                'flex w-[60px] h-[146px] flex-col justify-center items-center rounded-[30px] border border-white-opacity-20 shadow-custom-hourly-daily mb-[19px] shrink-0',
+                'flex w-[60px] h-[146px] flex-col justify-center items-center rounded-[30px] border border-white-opacity-20 shadow-custom-hourly-daily mb-[1px] shrink-0',
                 isHighlighted() ? 'bg-[#48319D]' : 'bg-purple-opacity-20'
             )}
         >
@@ -38,7 +38,7 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
                     : amPmTime(time)}
             </div>
 
-            <div className="py-[16px]">
+            <div className="py-[16px] flex flex-col">
                 <div
                     className="bg-contain bg-center w-[32px] h-[32px]"
                     style={{
@@ -46,8 +46,8 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
                     }}
                 ></div>
                 {props.item.precipitation_probability && (
-                    <div className="text-precipitation-probability">
-                        {props.item.precipitation_probability}
+                    <div className="text-precipitation-probability text-center text-[13px] font-semibold leading-tight tracking-[-0.078px] ">
+                        {props.item.precipitation_probability}%
                     </div>
                 )}
             </div>

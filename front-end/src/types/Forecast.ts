@@ -27,6 +27,8 @@ export interface Current {
     temp_low: number;
     city: string;
     country: string;
+    longitude: number;
+    latitude: number;
 }
 
 export interface DailyHourly {

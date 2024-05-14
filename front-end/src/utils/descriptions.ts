@@ -269,11 +269,11 @@ const weatherCodes: Record<
     '95': {
         day: {
             description: 'Thunderstorm',
-            image: './image/weather-icons/thunderstorm-rain.svg',
+            image: './image/weather-icons/thunderstorms-rain.svg',
         },
         night: {
             description: 'Thunderstorm',
-            image: './image/weather-icons/thunderstorm-rain.svg',
+            image: './image/weather-icons/thunderstorms-rain.svg',
         },
     },
     '96': {

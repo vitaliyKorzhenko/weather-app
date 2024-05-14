@@ -10,6 +10,7 @@ import UpperInfo from './components/UpperInfo';
 import Footer from './components/Footer';
 import UtilityButtons from './components/UtilityButtons';
 import { createContext, useState } from 'react';
+import GoogleMap from './components/GoogleMap';
 
 export const FooterContext = createContext<
     | {
@@ -20,7 +21,7 @@ export const FooterContext = createContext<
 >(undefined);
 
 function FooterContextProvider(props: { children: React.JSX.Element }) {
-    const [state, setState] = useState<boolean>(false);
+    const [state, setState] = useState<boolean>(true);
 
     return (
         <FooterContext.Provider
@@ -64,6 +65,7 @@ function App() {
                         ),
 
                         '/auth': <LoginAndSignupPage />,
+                        '/map': <GoogleMap />,
                     }}
                 ></RouterContextProvider>
             </AuthContextProvider>

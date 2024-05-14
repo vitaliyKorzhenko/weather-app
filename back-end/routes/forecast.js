@@ -127,7 +127,7 @@ router.get(
                 pressure: Math.round(obj.surface_pressure),
                 wind_speed: obj.wind_speed_10m,
                 wind_direction: obj.wind_direction_10m,
-                uv_index: airQuality.current.uv_index,
+                uv_index: Math.round(airQuality.current.uv_index),
                 us_aqi: airQuality.current.us_aqi,
                 sunrise: weatherDetails.daily['sunrise'][0],
                 sunset: weatherDetails.daily['sunset'][0],
