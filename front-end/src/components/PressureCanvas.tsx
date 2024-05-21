@@ -15,7 +15,7 @@ const PressureCanvas = () => {
 
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius2 = canvas.width / 2; // Radius of outer circle
+        const radius2 = canvas.width / 2 - 25; // Radius of outer circle
         const radius1 = radius2 * 0.9; //Radius of inner circle
         const strokesNumber = 75;
         const angleBetweenStrokes = 270 / strokesNumber;
@@ -79,12 +79,12 @@ const PressureCanvas = () => {
         }
 
         const [x, y] = getCoordinates(
-            radius2 + 30,
+            radius2 + 10,
             ((arrowAngle + 135) * Math.PI) / 180
         ); //coordinates of the arrow on the outer circle
 
         const [x1, y1] = getCoordinates(
-            radius1 - 30,
+            radius1 - 10,
             ((arrowAngle + 135) * Math.PI) / 180
         ); //coordinates of the arrow on the inner circle
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import WeatherNowTodayCard from './WeatherNowTodayCard';
 import ForecastContext from '../../Context/ForecastContext';
 import clsx from 'clsx';
@@ -8,6 +8,7 @@ function WeatherHourlyDaily() {
     const [hourlyDaily, setHourlyDaily] = useState<'hourly' | 'daily'>(
         'hourly'
     );
+    const scrollRef = useRef<HTMLDivElement | null>(null);
 
     const setHourly = () => {
         setHourlyDaily('hourly');
@@ -16,6 +17,57 @@ function WeatherHourlyDaily() {
     const setWeekly = () => {
         setHourlyDaily('daily');
     };
+
+    useEffect(() => {
+        const scrollContainer = scrollRef.current;
+
+        if (scrollContainer === null) {
+            return;
+        }
+
+        let isDown = false;
+        let startX: number;
+        let scrollLeft: number;
+
+        const onMouseDown = (e: MouseEvent) => {
+            e.stopPropagation();
+            isDown = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+            scrollContainer.style.cursor = 'grabbing';
+        };
+
+        const onMouseLeave = () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        };
+
+        const onMouseUp = () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        };
+
+        const onMouseMove = (e: MouseEvent) => {
+            if (!isDown) return;
+            e.stopPropagation();
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.5; // Adjust scrolling speed
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        };
+
+        scrollContainer.addEventListener('mousedown', onMouseDown);
+        scrollContainer.addEventListener('mouseleave', onMouseLeave);
+        scrollContainer.addEventListener('mouseup', onMouseUp);
+        scrollContainer.addEventListener('mousemove', onMouseMove);
+
+        return () => {
+            scrollContainer.removeEventListener('mousedown', onMouseDown);
+            scrollContainer.removeEventListener('mouseleave', onMouseLeave);
+            scrollContainer.removeEventListener('mouseup', onMouseUp);
+            scrollContainer.removeEventListener('mousemove', onMouseMove);
+        };
+    }, []);
 
     return (
         <div>
@@ -48,7 +100,10 @@ function WeatherHourlyDaily() {
                 </button>
             </div>
 
-            <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-hide ml-[20px] pt-[19px] pb-[10px] h-[176px] gap-[12px]">
+            <div
+                ref={scrollRef}
+                className="flex overflow-y-hidden overflow-x-scroll scrollbar-hide ml-[20px] pt-[19px] pb-[10px] h-[176px] gap-[12px] cursor-grab"
+            >
                 {forecast![hourlyDaily].map((item, index) => {
                     return (
                         <WeatherNowTodayCard

@@ -10,7 +10,7 @@ function Sunrise() {
 
     return (
         <div className="flex flex-col">
-            <div>
+            <div className="text-white font-sans-text text-xl">
                 {sunrise.toLocaleString('en-US', {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -19,7 +19,7 @@ function Sunrise() {
             <div className="mx-[-16px]">
                 <CosineCanvas sunrise={sunrise} sunset={sunset} time={time} />
             </div>
-            <div>
+            <div className="text-white font-sans-text text-sm">
                 {`Sunset: ${sunset.toLocaleString('en-US', {
                     hour: 'numeric',
                     minute: '2-digit',

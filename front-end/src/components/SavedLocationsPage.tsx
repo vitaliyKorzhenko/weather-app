@@ -14,15 +14,17 @@ function SavedLocationsPage() {
         <>
             <div className="flex overflow-y-scroll scrollbar-hide flex-col bg-gradient-to-br from-[#2e335a] to-[#1C1B33] rounded w-[100%] h-[100%] gap-[8px]">
                 <SavedLocationsHeader />
-                <div className=" py-[9px] px-[16px]">
+                <div className=" py-[9px] px-[16px] flex flex-col gap-3">
                     {searchContext?.locations.map((item, index) => (
                         <FoundLocationResults key={index} item={item} />
                     ))}
-                    <div className="overflow-y-scroll scrollbar-hide flex flex-col gap-2">
-                        {savedLocation?.locations.map((item, index) => (
-                            <SavedLocationCard key={index} item={item} />
-                        ))}
-                    </div>
+                    {!searchContext!.locations.length && (
+                        <div className="overflow-y-scroll scrollbar-hide flex flex-col gap-[22px] relative">
+                            {savedLocation?.locations.map((item, index) => (
+                                <SavedLocationCard key={index} item={item} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </>

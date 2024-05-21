@@ -28,11 +28,17 @@ function AirQuality() {
     const dotPosition = (forecast!.current.us_aqi / 500) * 100;
 
     return (
-        <div className="flex items-center justify-around flex-col gap-[33px]">
-            <div className="text-white font-sans-display text-[25px]">{`${
-                forecast!.current.us_aqi
-            }-${airQualityMeaning(forecast!.current.us_aqi)}`}</div>
-            <div className="relative w-full">
+        <div className="flex items-center justify-around flex-col">
+            <div className="flex items-center flex-col">
+                <div className="text-white font-sans-display text-[25px]">{`${
+                    forecast!.current.us_aqi
+                }`}</div>
+                <div className="text-white font-sans-display text-[25px]">{`${airQualityMeaning(
+                    forecast!.current.us_aqi
+                )}`}</div>
+            </div>
+
+            <div className="relative w-full mt-[15px]">
                 <div className="w-full h-1 bg-gradient-to-r from-[#4c6aba] to-[#e74394] rounded-full"></div>
                 <div
                     className="absolute top-0 left-0 mt-[-2px]"

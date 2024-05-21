@@ -49,30 +49,15 @@ const CompassCanvas = () => {
             context.stroke();
         }
 
-        // context.font = `bold ${48}px Arial`;
-        // context.fillStyle = 'black';
-        // const textInfo = context.measureText('N');
-        // console.log(textInfo);
-
-        // // Draw the cardinal directions
-        // context.fillText(
-        //     'N',
-        //     centerX - textInfo.width / 2,
-        //     centerY - radius1 + font
-        // );
-        // context.fillText('S', centerX - 3, centerY + radius2 - 10);
-        // context.fillText('W', centerX - radius2 + 10, centerY + 5);
-        // context.fillText('E', centerX + radius2 - 15, centerY + 5);
-
         const [x, y] = getCoordinates(
             radius1,
             degreesToRadians(forecast!.current.wind_direction + 90)
         ); // arrow coordinates
         context.beginPath();
-        context.lineWidth = 5;
+        context.lineWidth = 20;
         context.moveTo(centerX, centerY);
         context.lineTo(x + centerX, y + centerY);
-        context.strokeStyle = 'white';
+        context.strokeStyle = '#ebac25';
         context.stroke();
 
         //arrow sides coordinates
@@ -92,7 +77,7 @@ const CompassCanvas = () => {
         context.lineTo(x1 + x + centerX, y1 + y + centerY); // Draw line to first side
         context.lineTo(x2 + x + centerX, y2 + y + centerY); // Draw line to second side
         context.closePath(); // Close the path to complete the triangle
-        context.fillStyle = 'white'; // Set fill color
+        context.fillStyle = '#ebac25'; // Set fill color
         context.fill(); // Fill the triangle
     }, []);
 

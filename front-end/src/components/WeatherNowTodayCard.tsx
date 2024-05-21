@@ -2,6 +2,8 @@ import { findDay, amPmTime, parseISOLocal } from '../utils/dateUtils';
 import { DailyHourly } from '../types/Forecast';
 import { clsx } from 'clsx';
 import { weatherCodeInfo } from '../utils/descriptions';
+import { useContext } from 'react';
+import UnitContext from '../../Context/UnitContext';
 
 type WeatherNowTodayCardProps = {
     hourlyDaily: 'hourly' | 'daily';
@@ -11,6 +13,8 @@ type WeatherNowTodayCardProps = {
 function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
     const time = parseISOLocal(props.item.time); //props.item.time = "2024-03-14T00:00"
 
+    const unit = useContext(UnitContext);
+
     const getWeatherInfoAndIcon = weatherCodeInfo(
         props.item.time,
         props.item.weather_code,
@@ -18,6 +22,10 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
         props.item.sunset
     );
     //console.log(time.getHours());
+    // console.log(
+    //     'Precipitation probability:',
+    //     props.item.precipitation_probability
+    // );
 
     function isHighlighted() {
         return props['hourlyDaily'] === 'hourly'
@@ -45,15 +53,25 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
                         backgroundImage: `url(${getWeatherInfoAndIcon.image})`,
                     }}
                 ></div>
-                {props.item.precipitation_probability && (
+                {/* {props.item.precipitation_probability && (
                     <div className="text-precipitation-probability text-center text-[13px] font-semibold leading-tight tracking-[-0.078px] ">
                         {props.item.precipitation_probability}%
                     </div>
-                )}
+                )} */}
+                <div
+                    className={clsx(
+                        'text-precipitation-probability text-center text-[13px] font-semibold leading-tight tracking-[-0.078px]',
+                        props.item.precipitation_probability === 0
+                            ? 'invisible'
+                            : 'visible'
+                    )}
+                >
+                    {props.item.precipitation_probability}%{' '}
+                </div>
             </div>
 
             <div className="text-Label-Dark-Primary font-sans-text text-[20px] not-italic font-normal leading-5 tracking-[-0.5px]">
-                {props.item.temperature}°
+                {unit?.convert(props.item.temperature)}°
             </div>
         </div>
     );

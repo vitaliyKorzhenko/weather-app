@@ -29,6 +29,7 @@ export interface Current {
     country: string;
     longitude: number;
     latitude: number;
+    visibility: number;
 }
 
 export interface DailyHourly {

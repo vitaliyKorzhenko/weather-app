@@ -1,18 +1,29 @@
 import { useContext } from 'react';
 import RouterContext from '../../Context/RouterContext';
-import { FooterContext } from '../App';
+
 import clsx from 'clsx';
 import ForecastContext from '../../Context/ForecastContext';
+import SavedLocationsContext from '../../Context/SavedLocationsContext';
+import { LocationItem } from '../types/LocationItem';
+import FooterContext from '../../Context/FooterContext';
 
 function UtilityButtons() {
     const router = useContext(RouterContext);
     const footer = useContext(FooterContext);
     const forecast = useContext(ForecastContext);
+    const context = useContext(SavedLocationsContext);
 
+    const queryUrl = new URLSearchParams(window.location.search);
+    const locationDetails = {
+        city: queryUrl.get('city'),
+        country: queryUrl.get('country'),
+        latitude: forecast!.current.latitude,
+        longitude: forecast!.current.longitude,
+    } as LocationItem;
     return (
         <div
             className={clsx(
-                'shrink-0 z-50 w-full duration-700 transition-all absolute bottom-0 ',
+                'shrink-0 z-50 w-[390px] duration-700 transition-all absolute bottom-0 ',
                 footer!.state && 'opacity-0 z-0'
             )}
         >
@@ -27,7 +38,14 @@ function UtilityButtons() {
                     }}
                 ></button>
                 <button
-                    className="bg-[url('./image/Button.svg')] w-[66px] h-[66px] flex shrink-0  bg-center bg-no-repeat"
+                    disabled={!queryUrl.has('city')}
+                    onClick={() => {
+                        context?.addLocationHandler(locationDetails);
+                    }}
+                    className={clsx(
+                        "bg-[url('./image/Button.svg')] w-[66px] h-[66px] flex shrink-0  bg-center bg-no-repeat hover:scale-125",
+                        !queryUrl.has('city') && 'grayScaleButton'
+                    )}
                     style={{
                         filter: 'drop-shadow(10px 10px 20px rgba(13, 20, 49, 0.50)) drop-shadow(-10px -10px 20px rgba(255, 255, 255, 0.50)) ',
                     }}

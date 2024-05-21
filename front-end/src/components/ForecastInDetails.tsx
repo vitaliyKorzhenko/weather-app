@@ -10,14 +10,15 @@ import Humidity from './Humidity';
 import Visibility from './Visibility';
 import Pressure from './Pressure';
 import { useContext } from 'react';
-import { FooterContext } from '../App';
+
 import clsx from 'clsx';
+import FooterContext from '../../Context/FooterContext';
 
 function ForecastInDetails() {
     const footer = useContext(FooterContext);
 
     return (
-        <div>
+        <div className="w-[390px]">
             <WeatherHourlyDaily />
             <div
                 className={clsx(

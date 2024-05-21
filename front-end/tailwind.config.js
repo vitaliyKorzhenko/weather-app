@@ -2,7 +2,11 @@ import plugin from 'tailwindcss/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ['./src/**/*.{ts,tsx}'],
+    content: [
+        './src/**/*.{js,ts,jsx,tsx}',
+        './public/index.html',
+        './path/to/your/css/file.css',
+    ],
     theme: {
         extend: {
             colors: {
@@ -52,18 +56,5 @@ export default {
                 },
             });
         }),
-        // plugin(function ({ addUtilities }) {
-        //     const dropShadows = {
-        //         '.drop-shadow-dark': {
-        //             filter: 'drop-shadow(10px 10px 20px rgba(13, 20, 49, 0.50))',
-        //         },
-        //         '.drop-shadow-lighter': {
-        //             boxShadow:
-        //                 'drop-shadow(-10px -10px 20px rgba(255, 255, 255, 0.50))',
-        //         },
-        //     };
-
-        //     addUtilities(dropShadows, ['responsive', 'hover']);
-        // }),
     ],
 };

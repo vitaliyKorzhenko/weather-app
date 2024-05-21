@@ -6,68 +6,48 @@ import { ForecastContextProvider } from '../Context/ForecastContext';
 import { RouterContextProvider } from '../Context/RouterContext';
 import { SavedLocationsContextProvider } from '../Context/SavedLocationsContext';
 import { SearchContextProvider } from '../Context/SearchContext';
+import { FooterContextProvider } from '../Context/FooterContext';
+import { UnitContextProvider } from '../Context/UnitContext';
 import UpperInfo from './components/UpperInfo';
 import Footer from './components/Footer';
 import UtilityButtons from './components/UtilityButtons';
-import { createContext, useState } from 'react';
 import GoogleMap from './components/GoogleMap';
-
-export const FooterContext = createContext<
-    | {
-          state: boolean;
-          setState: React.Dispatch<React.SetStateAction<boolean>>;
-      }
-    | undefined
->(undefined);
-
-function FooterContextProvider(props: { children: React.JSX.Element }) {
-    const [state, setState] = useState<boolean>(true);
-
-    return (
-        <FooterContext.Provider
-            value={{
-                state,
-                setState,
-            }}
-        >
-            {props.children}
-        </FooterContext.Provider>
-    );
-}
 
 function App() {
     return (
-        <div className="bg-[url('./image/Background.svg')] w-[390px] h-[844px] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center">
+        <div className="bg-[url('./image/Background.svg')] w-[390px] h-[844px] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center relative select-none">
             <AuthContextProvider>
-                <RouterContextProvider
-                    Routes={{
-                        '/': (
-                            <ForecastContextProvider>
-                                <>
-                                    <Header />
-                                    <UpperInfo />
-
-                                    <FooterContextProvider>
+                <UnitContextProvider>
+                    <SavedLocationsContextProvider>
+                        <RouterContextProvider
+                            Routes={{
+                                '/': (
+                                    <ForecastContextProvider>
                                         <>
-                                            <Footer />
-                                            <UtilityButtons />
-                                        </>
-                                    </FooterContextProvider>
-                                </>
-                            </ForecastContextProvider>
-                        ),
-                        '/saved-locations': (
-                            <SavedLocationsContextProvider>
-                                <SearchContextProvider>
-                                    <SavedLocationsPage />
-                                </SearchContextProvider>
-                            </SavedLocationsContextProvider>
-                        ),
+                                            <Header />
+                                            <UpperInfo />
 
-                        '/auth': <LoginAndSignupPage />,
-                        '/map': <GoogleMap />,
-                    }}
-                ></RouterContextProvider>
+                                            <FooterContextProvider>
+                                                <>
+                                                    <Footer />
+                                                    <UtilityButtons />
+                                                </>
+                                            </FooterContextProvider>
+                                        </>
+                                    </ForecastContextProvider>
+                                ),
+                                '/saved-locations': (
+                                    <SearchContextProvider>
+                                        <SavedLocationsPage />
+                                    </SearchContextProvider>
+                                ),
+
+                                '/auth': <LoginAndSignupPage />,
+                                '/map': <GoogleMap />,
+                            }}
+                        ></RouterContextProvider>
+                    </SavedLocationsContextProvider>
+                </UnitContextProvider>
             </AuthContextProvider>
         </div>
     );

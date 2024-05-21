@@ -34,7 +34,7 @@ function CosineCanvas({ sunrise, sunset, time }: SunriseSunsetProps) {
         // Draw the cosine function
 
         context.moveTo(padding, cosineFun(padding));
-        context.lineWidth = 15;
+        context.lineWidth = 30;
 
         for (let x = padding; x <= width - padding; x++) {
             context.beginPath();

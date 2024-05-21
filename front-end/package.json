@@ -11,6 +11,7 @@
         "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/output.css --watch "
     },
     "dependencies": {
+        "@react-google-maps/api": "^2.19.3",
         "axios": "^1.6.7",
         "clsx": "^2.1.0",
         "framer-motion": "^11.1.7",
@@ -20,6 +21,7 @@
         "react-use-measure": "^2.1.1"
     },
     "devDependencies": {
+        "@types/node": "^20.12.11",
         "@types/react": "^18.2.43",
         "@types/react-dom": "^18.2.17",
         "@typescript-eslint/eslint-plugin": "^6.14.0",
