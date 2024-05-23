@@ -7,7 +7,6 @@ import {
 import { Location } from '../src/types/Location';
 import { LocationContextTypes } from '../src/types/LocationContextTypes';
 import { LocationItem } from '../src/types/LocationItem';
-import axios from 'axios';
 
 const SavedLocationsContext = createContext<LocationContextTypes | undefined>(
     undefined

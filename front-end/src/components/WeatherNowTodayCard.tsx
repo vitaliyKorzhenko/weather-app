@@ -21,11 +21,6 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
         props.item.sunrise,
         props.item.sunset
     );
-    //console.log(time.getHours());
-    // console.log(
-    //     'Precipitation probability:',
-    //     props.item.precipitation_probability
-    // );
 
     function isHighlighted() {
         return props['hourlyDaily'] === 'hourly'
@@ -40,7 +35,7 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
                 isHighlighted() ? 'bg-[#48319D]' : 'bg-purple-opacity-20'
             )}
         >
-            <div className="w-[43px] text-Label-Dark-Primary font-sans-text text-[15px] not-italic font-semibold leading-6 tracking-[-0.5px] text-center">
+            <div className="w-[43px] text-Label-Dark-Primary font-sans-text text-[15px] not-italic font-semibold leading-6 tracking-[-1px] text-center">
                 {props['hourlyDaily'] === 'daily'
                     ? findDay(time.getDay()).slice(0, 3).toUpperCase()
                     : amPmTime(time)}

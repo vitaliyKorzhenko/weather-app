@@ -544,6 +544,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .visible {
   visibility: visible;
 }
@@ -1576,6 +1580,10 @@ video {
 
 .tracking-\[-0\.5px\] {
   letter-spacing: -0.5px;
+}
+
+.tracking-\[-1px\] {
+  letter-spacing: -1px;
 }
 
 .tracking-\[\.364px\] {

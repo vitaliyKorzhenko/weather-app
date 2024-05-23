@@ -4,11 +4,26 @@ import SavedLocationsContext from '../../Context/SavedLocationsContext';
 import RouterContext from '../../Context/RouterContext';
 import { weatherCodeInfo } from '../utils/descriptions';
 import UnitContext from '../../Context/UnitContext';
+import clsx from 'clsx';
 
-function SavedLocationCard({ item }: { item: Location }) {
+function SavedLocationCard({
+    item,
+    isMoving,
+}: {
+    item: Location;
+    isMoving: boolean;
+}) {
     const savedLocations = useContext(SavedLocationsContext);
     const router = useContext(RouterContext);
     const unit = useContext(UnitContext);
+
+    console.log(isMoving);
+
+    const obj = {
+        "bg-[url('./image/rectangle-1.svg')] bg-no-repeat flex flex-row w-[342px] h-[184px] shrink-0 bg-bottom gap-2":
+            true,
+        'pointer-events-none': isMoving,
+    };
 
     const getWeatherInfoAndIcon = weatherCodeInfo(
         item.time,
@@ -31,8 +46,13 @@ function SavedLocationCard({ item }: { item: Location }) {
                 </span>
             </button>
             <div
-                className="bg-[url('./image/rectangle-1.svg')] bg-no-repeat flex flex-row w-[342px] h-[184px] shrink-0 bg-bottom gap-2"
+                className={clsx(obj)}
                 onClick={(event) => {
+                    console.log('Location card clicked', isMoving);
+
+                    // if (isMoving) {
+                    //     return;
+                    // }
                     if ((event.target as HTMLElement).nodeName === 'button') {
                         return;
                     }

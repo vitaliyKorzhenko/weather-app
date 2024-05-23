@@ -13,7 +13,7 @@ const logger = createLogger({
         }),
     ],
     format: format.combine(
-        format.json(),
+        format.simple(),
         format.timestamp(),
         format.metadata(),
         format.prettyPrint()

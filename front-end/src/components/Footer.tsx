@@ -5,14 +5,17 @@ import FooterContext from '../../Context/FooterContext';
 
 function Footer() {
     const footer = useContext(FooterContext);
-    const scrollRef = useRef(null);
+    const scrollRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const scrollContainer = scrollRef.current;
+        if (scrollContainer === null) {
+            return;
+        }
 
         let isDown = false;
-        let startY;
-        let scrollTop;
+        let startY: number;
+        let scrollTop: number;
 
         const onMouseDown = (e) => {
             isDown = true;

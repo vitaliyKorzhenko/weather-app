@@ -56,13 +56,14 @@ router.get(
 
             log.info('reverse geocoding request');
             const { data } = await axios.get(
-                `https://geocode.xyz/${latitude},${longitude}?json=1&auth=${apikey}`
+                `https://geocode.xyz/${latitude},${longitude}?json=1`
             );
             city = data.city;
             country = data.country;
             log.info(
                 'Query params for reverse geocoding have been successfully received'
             );
+            console.log(data);
         }
 
         const [{ data: weatherDetails }, { data: airQuality }] =

@@ -11,4 +11,5 @@ export interface Location {
     sunrise: string;
     sunset: string;
     time: string;
+    dragging: () => void;
 }
