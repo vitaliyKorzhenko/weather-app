@@ -1,7 +1,8 @@
-import { useContext, useState, useRef, useEffect } from 'react';
+import { useContext, useState, useRef } from 'react';
 import WeatherNowTodayCard from './WeatherNowTodayCard';
 import ForecastContext from '../../Context/ForecastContext';
 import clsx from 'clsx';
+import useRefScroll from '../utils/useRefScroll';
 
 function WeatherHourlyDaily() {
     const forecast = useContext(ForecastContext);
@@ -18,56 +19,58 @@ function WeatherHourlyDaily() {
         setHourlyDaily('daily');
     };
 
-    useEffect(() => {
-        const scrollContainer = scrollRef.current;
+    useRefScroll(scrollRef);
 
-        if (scrollContainer === null) {
-            return;
-        }
+    // useEffect(() => {
+    //     const scrollContainer = scrollRef.current;
 
-        let isDown = false;
-        let startX: number;
-        let scrollLeft: number;
+    //     if (scrollContainer === null) {
+    //         return;
+    //     }
 
-        const onMouseDown = (e: MouseEvent) => {
-            e.stopPropagation();
-            isDown = true;
-            startX = e.pageX - scrollContainer.offsetLeft;
-            scrollLeft = scrollContainer.scrollLeft;
-            scrollContainer.style.cursor = 'grabbing';
-        };
+    //     let isDown = false;
+    //     let startX: number;
+    //     let scrollLeft: number;
 
-        const onMouseLeave = () => {
-            isDown = false;
-            scrollContainer.style.cursor = 'grab';
-        };
+    //     const onMouseDown = (e: MouseEvent) => {
+    //         e.stopPropagation();
+    //         isDown = true;
+    //         startX = e.pageX - scrollContainer.offsetLeft;
+    //         scrollLeft = scrollContainer.scrollLeft;
+    //         scrollContainer.style.cursor = 'grabbing';
+    //     };
 
-        const onMouseUp = () => {
-            isDown = false;
-            scrollContainer.style.cursor = 'grab';
-        };
+    //     const onMouseLeave = () => {
+    //         isDown = false;
+    //         scrollContainer.style.cursor = 'grab';
+    //     };
 
-        const onMouseMove = (e: MouseEvent) => {
-            if (!isDown) return;
-            e.stopPropagation();
-            e.preventDefault();
-            const x = e.pageX - scrollContainer.offsetLeft;
-            const walk = (x - startX) * 1.5; // Adjust scrolling speed
-            scrollContainer.scrollLeft = scrollLeft - walk;
-        };
+    //     const onMouseUp = () => {
+    //         isDown = false;
+    //         scrollContainer.style.cursor = 'grab';
+    //     };
 
-        scrollContainer.addEventListener('mousedown', onMouseDown);
-        scrollContainer.addEventListener('mouseleave', onMouseLeave);
-        scrollContainer.addEventListener('mouseup', onMouseUp);
-        scrollContainer.addEventListener('mousemove', onMouseMove);
+    //     const onMouseMove = (e: MouseEvent) => {
+    //         if (!isDown) return;
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         const x = e.pageX - scrollContainer.offsetLeft;
+    //         const walk = (x - startX) * 1.5; // Adjust scrolling speed
+    //         scrollContainer.scrollLeft = scrollLeft - walk;
+    //     };
 
-        return () => {
-            scrollContainer.removeEventListener('mousedown', onMouseDown);
-            scrollContainer.removeEventListener('mouseleave', onMouseLeave);
-            scrollContainer.removeEventListener('mouseup', onMouseUp);
-            scrollContainer.removeEventListener('mousemove', onMouseMove);
-        };
-    }, []);
+    //     scrollContainer.addEventListener('mousedown', onMouseDown);
+    //     scrollContainer.addEventListener('mouseleave', onMouseLeave);
+    //     scrollContainer.addEventListener('mouseup', onMouseUp);
+    //     scrollContainer.addEventListener('mousemove', onMouseMove);
+
+    //     return () => {
+    //         scrollContainer.removeEventListener('mousedown', onMouseDown);
+    //         scrollContainer.removeEventListener('mouseleave', onMouseLeave);
+    //         scrollContainer.removeEventListener('mouseup', onMouseUp);
+    //         scrollContainer.removeEventListener('mousemove', onMouseMove);
+    //     };
+    // }, []);
 
     return (
         <div>

@@ -2,51 +2,54 @@ import { useContext, useRef, useEffect } from 'react';
 import ForecastInDetails from './ForecastInDetails';
 import clsx from 'clsx';
 import FooterContext from '../../Context/FooterContext';
+import useRefScroll from '../utils/useRefScroll';
 
 function Footer() {
     const footer = useContext(FooterContext);
     const scrollRef = useRef<HTMLElement | null>(null);
 
-    useEffect(() => {
-        const scrollContainer = scrollRef.current;
-        if (scrollContainer === null) {
-            return;
-        }
+    useRefScroll(scrollRef);
 
-        let isDown = false;
-        let startY: number;
-        let scrollTop: number;
+    // useEffect(() => {
+    //     const scrollContainer = scrollRef.current;
+    //     if (scrollContainer === null) {
+    //         return;
+    //     }
 
-        const onMouseDown = (e) => {
-            isDown = true;
-            startY = e.pageY - scrollContainer.offsetTop;
-            scrollTop = scrollContainer.scrollTop;
-            scrollContainer.style.cursor = 'grabbing';
-        };
+    //     let isDown = false;
+    //     let startY: number;
+    //     let scrollTop: number;
 
-        const onMouseUp = () => {
-            isDown = false;
-            scrollContainer.style.cursor = 'grab';
-        };
+    //     const onMouseDown = (e) => {
+    //         isDown = true;
+    //         startY = e.pageY - scrollContainer.offsetTop;
+    //         scrollTop = scrollContainer.scrollTop;
+    //         scrollContainer.style.cursor = 'grabbing';
+    //     };
 
-        const onMouseMove = (e) => {
-            if (!isDown || !footer || !footer.state) return; // Prevent scrolling when footer is collapsed
-            e.preventDefault();
-            const y = e.pageY - scrollContainer.offsetTop;
-            const walk = (y - startY) * 2; // Adjust scrolling speed
-            scrollContainer.scrollTop = scrollTop - walk;
-        };
+    //     const onMouseUp = () => {
+    //         isDown = false;
+    //         scrollContainer.style.cursor = 'grab';
+    //     };
 
-        scrollContainer.addEventListener('mousedown', onMouseDown);
-        scrollContainer.addEventListener('mouseup', onMouseUp);
-        scrollContainer.addEventListener('mousemove', onMouseMove);
+    //     const onMouseMove = (e) => {
+    //         if (!isDown || !footer || !footer.state) return; // Prevent scrolling when footer is collapsed
+    //         e.preventDefault();
+    //         const y = e.pageY - scrollContainer.offsetTop;
+    //         const walk = (y - startY) * 2; // Adjust scrolling speed
+    //         scrollContainer.scrollTop = scrollTop - walk;
+    //     };
 
-        return () => {
-            scrollContainer.removeEventListener('mousedown', onMouseDown);
-            scrollContainer.removeEventListener('mouseup', onMouseUp);
-            scrollContainer.removeEventListener('mousemove', onMouseMove);
-        };
-    }, [footer]);
+    //     scrollContainer.addEventListener('mousedown', onMouseDown);
+    //     scrollContainer.addEventListener('mouseup', onMouseUp);
+    //     scrollContainer.addEventListener('mousemove', onMouseMove);
+
+    //     return () => {
+    //         scrollContainer.removeEventListener('mousedown', onMouseDown);
+    //         scrollContainer.removeEventListener('mouseup', onMouseUp);
+    //         scrollContainer.removeEventListener('mousemove', onMouseMove);
+    //     };
+    // }, [footer]);
 
     return (
         <div

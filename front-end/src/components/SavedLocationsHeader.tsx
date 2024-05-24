@@ -10,7 +10,7 @@ function SavedLocationsHeader() {
             <div className="flex pr-[9px] items-center gap-[5px]">
                 <div
                     onClick={() => router?.setRoute('/')}
-                    className="bg-[url('./images/icon-chevron-left.svg')] w-[18px] h-[24px] bg-no-repeat"
+                    className="bg-[url('./images/icon-chevron-left.svg')] w-[18px] h-[24px] bg-no-repeat cursor-pointer"
                 ></div>
                 <div className=" text-white disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:pointer-events-none font-sans-display text-[28px] font-normal leading-9 tracking-[.364px]">
                     Weather

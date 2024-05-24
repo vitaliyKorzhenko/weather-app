@@ -15,40 +15,43 @@ import GoogleMap from './components/GoogleMap';
 
 function App() {
     return (
-        <div className="bg-[url('./image/Background.svg')] w-[390px] h-[844px] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center relative select-none">
-            <AuthContextProvider>
-                <UnitContextProvider>
-                    <SavedLocationsContextProvider>
-                        <RouterContextProvider
-                            Routes={{
-                                '/': (
-                                    <ForecastContextProvider>
-                                        <>
-                                            <Header />
-                                            <UpperInfo />
+        <div className="grid place-items-center h-[100vh] bg-[#48319d]">
+            {/* <div className="bg-[url('./image/iphone-frame.png')] bg-cover bg-no-repeat w-[400px] h-[860px]"></div> */}
+            <div className="bg-[url('./image/Background.svg')] w-[390px] h-[min(100vh,844px)] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center relative select-none">
+                <AuthContextProvider>
+                    <UnitContextProvider>
+                        <SavedLocationsContextProvider>
+                            <RouterContextProvider
+                                Routes={{
+                                    '/': (
+                                        <ForecastContextProvider>
+                                            <>
+                                                <Header />
+                                                <UpperInfo />
 
-                                            <FooterContextProvider>
-                                                <>
-                                                    <Footer />
-                                                    <UtilityButtons />
-                                                </>
-                                            </FooterContextProvider>
-                                        </>
-                                    </ForecastContextProvider>
-                                ),
-                                '/saved-locations': (
-                                    <SearchContextProvider>
-                                        <SavedLocationsPage />
-                                    </SearchContextProvider>
-                                ),
+                                                <FooterContextProvider>
+                                                    <>
+                                                        <Footer />
+                                                        <UtilityButtons />
+                                                    </>
+                                                </FooterContextProvider>
+                                            </>
+                                        </ForecastContextProvider>
+                                    ),
+                                    '/saved-locations': (
+                                        <SearchContextProvider>
+                                            <SavedLocationsPage />
+                                        </SearchContextProvider>
+                                    ),
 
-                                '/auth': <LoginAndSignupPage />,
-                                '/map': <GoogleMap />,
-                            }}
-                        ></RouterContextProvider>
-                    </SavedLocationsContextProvider>
-                </UnitContextProvider>
-            </AuthContextProvider>
+                                    '/auth': <LoginAndSignupPage />,
+                                    '/map': <GoogleMap />,
+                                }}
+                            ></RouterContextProvider>
+                        </SavedLocationsContextProvider>
+                    </UnitContextProvider>
+                </AuthContextProvider>
+            </div>
         </div>
     );
 }

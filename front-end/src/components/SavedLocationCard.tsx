@@ -48,11 +48,6 @@ function SavedLocationCard({
             <div
                 className={clsx(obj)}
                 onClick={(event) => {
-                    console.log('Location card clicked', isMoving);
-
-                    // if (isMoving) {
-                    //     return;
-                    // }
                     if ((event.target as HTMLElement).nodeName === 'button') {
                         return;
                     }

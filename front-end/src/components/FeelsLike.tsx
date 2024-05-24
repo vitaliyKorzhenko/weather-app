@@ -22,7 +22,7 @@ function FeelsLike() {
         }
     }
     return (
-        <div className="flex justify-around flex-col items-start gap-y-7">
+        <div className="flex justify-around flex-col items-start gap-y-5">
             <div className="font-sans-display text-white text-3xl">
                 {unit?.convert(forecast!.current.temperature)}°
             </div>

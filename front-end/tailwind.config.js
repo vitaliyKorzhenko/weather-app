@@ -16,6 +16,15 @@ export default {
                 'purple-opacity-20': 'rgba(72, 49, 157, 0.20)',
                 'hight-low-saved-location': 'rgba(235, 235, 245, 0.60)',
             },
+            keyframes: {
+                fadeOut: {
+                    '0%': { opacity: 1 },
+                    '100%': { opacity: 0 },
+                },
+            },
+            animation: {
+                fadeOut: 'fadeOut 3s forwards',
+            },
         },
         boxShadow: {
             'custom-hourly-daily':

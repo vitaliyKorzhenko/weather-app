@@ -24,7 +24,7 @@ function LoginAndSignupPage() {
 
     return (
         <div className="flex justify-center items-center h-full ">
-            <form className="flex flex-col my-auto justify-center items-center gap-[12px] mt-[225px] w-[55%]">
+            <form className="flex flex-col my-auto justify-center items-center gap-[12px] mt-[225px] w-[100%]">
                 <input
                     // className="bg-gradient-to-br from-[#2E335A] to-[#1C1B33] rounded"
                     className="mt-1 block w-full px-3 py-2 bg-[#e9f0fe] border border-slate-300 rounded-md text-sm outline-none

@@ -4,6 +4,7 @@ import SavedLocationsContext from '../../Context/SavedLocationsContext';
 import FoundLocationResults from './FoundLocationResults';
 import SearchContext from '../../Context/SearchContext';
 import SavedLocationsHeader from './SavedLocationsHeader';
+import useRefScroll from '../utils/useRefScroll';
 
 function SavedLocationsPage() {
     const savedLocation = useContext(SavedLocationsContext);
@@ -14,53 +15,7 @@ function SavedLocationsPage() {
     //const isMoving = useRef(false);
     const [isMoving, setIsMoving] = useState(false);
 
-    useEffect(() => {
-        const scrollContainer = scrollRef.current;
-        if (scrollContainer === null) {
-            return;
-        }
-
-        let isDown = false;
-        let startY: number;
-        let scrollTop: number;
-
-        const onMouseDown = (e: MouseEvent) => {
-            isDown = true;
-            startY = e.pageY - scrollContainer.offsetTop;
-            scrollTop = scrollContainer.scrollTop;
-            scrollContainer.style.cursor = 'grabbing';
-            console.log('down', isDown);
-        };
-
-        const onMouseUp = () => {
-            isDown = false;
-            scrollContainer.style.cursor = 'grab';
-            // isMoving.current = false;
-            setIsMoving(false);
-            console.log('up');
-        };
-
-        const onMouseMove = (e: MouseEvent) => {
-            if (!isDown) return; // Prevent scrolling when footer is collapsed
-            // isMoving.current = true-;
-            setIsMoving(true);
-            e.preventDefault();
-            const y = e.pageY - scrollContainer.offsetTop;
-            const walk = (y - startY) * 2; // Adjust scrolling speed
-            scrollContainer.scrollTop = scrollTop - walk;
-            console.log('move');
-        };
-
-        scrollContainer.addEventListener('pointerdown', onMouseDown);
-        scrollContainer.addEventListener('mouseup', onMouseUp);
-        scrollContainer.addEventListener('mousemove', onMouseMove);
-
-        return () => {
-            scrollContainer.removeEventListener('pointerdown', onMouseDown);
-            scrollContainer.removeEventListener('mouseup', onMouseUp);
-            scrollContainer.removeEventListener('mousemove', onMouseMove);
-        };
-    }, []);
+    useRefScroll(scrollRef, setIsMoving);
 
     return (
         <>
