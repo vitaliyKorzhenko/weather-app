@@ -33,7 +33,7 @@ function UtilityButtons() {
     return (
         <div
             className={clsx(
-                'shrink-0 z-50 w-[390px] duration-700 transition-all absolute bottom-0 ',
+                'shrink-0 z-40 w-[390px] duration-700 transition-all absolute bottom-0 ',
                 footer!.state && 'opacity-0 z-0'
             )}
         >
@@ -58,7 +58,6 @@ function UtilityButtons() {
                     disabled={!queryUrl.has('city')}
                     onClick={() => {
                         context?.addLocationHandler(locationDetails);
-                        router?.setRoute('/');
                         setIsClicked(true);
                     }}
                     className={clsx(

@@ -596,6 +596,10 @@ video {
   top: 50%;
 }
 
+.top-\[27px\] {
+  top: 27px;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -604,8 +608,16 @@ video {
   z-index: 10;
 }
 
+.z-40 {
+  z-index: 40;
+}
+
 .z-50 {
   z-index: 50;
+}
+
+.z-\[999\] {
+  z-index: 999;
 }
 
 .col-start-1 {
@@ -708,6 +720,10 @@ video {
   margin-top: -2px;
 }
 
+.mt-\[-4px\] {
+  margin-top: -4px;
+}
+
 .mt-\[-9px\] {
   margin-top: -9px;
 }
@@ -728,8 +744,12 @@ video {
   margin-top: 30px;
 }
 
-.mt-\[32px\] {
-  margin-top: 32px;
+.mt-\[37px\] {
+  margin-top: 37px;
+}
+
+.mt-\[39px\] {
+  margin-top: 39px;
 }
 
 .mt-\[3px\] {
@@ -738,6 +758,10 @@ video {
 
 .mt-\[5px\] {
   margin-top: 5px;
+}
+
+.mt-\[36px\] {
+  margin-top: 36px;
 }
 
 .box-border {
@@ -852,6 +876,10 @@ video {
   height: 66px;
 }
 
+.h-\[805px\] {
+  height: 805px;
+}
+
 .h-\[844px\] {
   height: 844px;
 }
@@ -860,12 +888,20 @@ video {
   height: 860px;
 }
 
-.h-\[min\(100vh\2c 844px\)\] {
-  height: min(100vh,844px);
-}
-
 .h-full {
   height: 100%;
+}
+
+.h-\[807px\] {
+  height: 807px;
+}
+
+.h-\[808px\] {
+  height: 808px;
+}
+
+.h-\[10\%\] {
+  height: 10%;
 }
 
 .min-h-\[120px\] {
@@ -1016,6 +1052,12 @@ video {
 .scale-95 {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-\[0\.92\] {
+  --tw-scale-x: 0.92;
+  --tw-scale-y: 0.92;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1294,11 +1336,6 @@ video {
   background-color: rgba(72, 49, 157, 0.20);
 }
 
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1421,6 +1458,14 @@ video {
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
 }
 
+.bg-contain {
+  background-size: contain;
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
 .bg-bottom {
   background-position: bottom;
 }
@@ -1443,12 +1488,12 @@ video {
      object-position: center;
 }
 
-.p-\[16px\] {
-  padding: 16px;
-}
-
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-\[16px\] {
+  padding: 16px;
 }
 
 .px-3 {
@@ -1495,6 +1540,14 @@ video {
 
 .pt-\[19px\] {
   padding-top: 19px;
+}
+
+.pt-\[27px\] {
+  padding-top: 27px;
+}
+
+.pt-\[29px\] {
+  padding-top: 29px;
 }
 
 .text-center {

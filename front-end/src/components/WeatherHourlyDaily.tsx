@@ -21,57 +21,6 @@ function WeatherHourlyDaily() {
 
     useRefScroll(scrollRef);
 
-    // useEffect(() => {
-    //     const scrollContainer = scrollRef.current;
-
-    //     if (scrollContainer === null) {
-    //         return;
-    //     }
-
-    //     let isDown = false;
-    //     let startX: number;
-    //     let scrollLeft: number;
-
-    //     const onMouseDown = (e: MouseEvent) => {
-    //         e.stopPropagation();
-    //         isDown = true;
-    //         startX = e.pageX - scrollContainer.offsetLeft;
-    //         scrollLeft = scrollContainer.scrollLeft;
-    //         scrollContainer.style.cursor = 'grabbing';
-    //     };
-
-    //     const onMouseLeave = () => {
-    //         isDown = false;
-    //         scrollContainer.style.cursor = 'grab';
-    //     };
-
-    //     const onMouseUp = () => {
-    //         isDown = false;
-    //         scrollContainer.style.cursor = 'grab';
-    //     };
-
-    //     const onMouseMove = (e: MouseEvent) => {
-    //         if (!isDown) return;
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         const x = e.pageX - scrollContainer.offsetLeft;
-    //         const walk = (x - startX) * 1.5; // Adjust scrolling speed
-    //         scrollContainer.scrollLeft = scrollLeft - walk;
-    //     };
-
-    //     scrollContainer.addEventListener('mousedown', onMouseDown);
-    //     scrollContainer.addEventListener('mouseleave', onMouseLeave);
-    //     scrollContainer.addEventListener('mouseup', onMouseUp);
-    //     scrollContainer.addEventListener('mousemove', onMouseMove);
-
-    //     return () => {
-    //         scrollContainer.removeEventListener('mousedown', onMouseDown);
-    //         scrollContainer.removeEventListener('mouseleave', onMouseLeave);
-    //         scrollContainer.removeEventListener('mouseup', onMouseUp);
-    //         scrollContainer.removeEventListener('mousemove', onMouseMove);
-    //     };
-    // }, []);
-
     return (
         <div>
             <div className="flex justify-around w-[390px] shrink-0 border-b-[1px] border-[#FFF] border-opacity-30">

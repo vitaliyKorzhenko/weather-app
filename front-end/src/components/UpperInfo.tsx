@@ -37,7 +37,7 @@ function UpperInfo() {
                     <div>L:{unit?.convert(forecast!.current.temperature)}°</div>
                 </div>
             </div>
-            <div className="h-full w-[390px] bg-[url('./image/house-43.png')] mt-[32px]"></div>
+            <div className="h-full w-[390px] bg-[url('./image/house-43.png')] mt-[-4px]"></div>
         </div>
     );
 }

@@ -41,9 +41,6 @@ export default {
             'sans-text': ['SF Pro Text', 'sans-serif'],
             'sans-display': ['SF Pro Display', 'sans-serif'],
         },
-        backgroundSize: {
-            '50%': '50%',
-        },
     },
     plugins: [
         plugin(function ({ addUtilities }) {

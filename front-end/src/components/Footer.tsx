@@ -10,54 +10,13 @@ function Footer() {
 
     useRefScroll(scrollRef);
 
-    // useEffect(() => {
-    //     const scrollContainer = scrollRef.current;
-    //     if (scrollContainer === null) {
-    //         return;
-    //     }
-
-    //     let isDown = false;
-    //     let startY: number;
-    //     let scrollTop: number;
-
-    //     const onMouseDown = (e) => {
-    //         isDown = true;
-    //         startY = e.pageY - scrollContainer.offsetTop;
-    //         scrollTop = scrollContainer.scrollTop;
-    //         scrollContainer.style.cursor = 'grabbing';
-    //     };
-
-    //     const onMouseUp = () => {
-    //         isDown = false;
-    //         scrollContainer.style.cursor = 'grab';
-    //     };
-
-    //     const onMouseMove = (e) => {
-    //         if (!isDown || !footer || !footer.state) return; // Prevent scrolling when footer is collapsed
-    //         e.preventDefault();
-    //         const y = e.pageY - scrollContainer.offsetTop;
-    //         const walk = (y - startY) * 2; // Adjust scrolling speed
-    //         scrollContainer.scrollTop = scrollTop - walk;
-    //     };
-
-    //     scrollContainer.addEventListener('mousedown', onMouseDown);
-    //     scrollContainer.addEventListener('mouseup', onMouseUp);
-    //     scrollContainer.addEventListener('mousemove', onMouseMove);
-
-    //     return () => {
-    //         scrollContainer.removeEventListener('mousedown', onMouseDown);
-    //         scrollContainer.removeEventListener('mouseup', onMouseUp);
-    //         scrollContainer.removeEventListener('mousemove', onMouseMove);
-    //     };
-    // }, [footer]);
-
     return (
         <div
             ref={scrollRef}
             className={clsx(
                 'absolute bottom-0 transition-all duration-700 bg-gradient-to-b from-[rgba(46,51,90,0.40)] to-[rgba(28,27,51,0.40)] backdrop-blur-xl rounded-t-[44px] w-[390px] cursor-grab',
                 footer && footer.state
-                    ? 'h-[844px] overflow-scroll scrollbar-hide'
+                    ? 'h-[808px] overflow-scroll scrollbar-hide mt-[36px]'
                     : 'h-[325px] overflow-hidden'
             )}
         >

@@ -8,7 +8,7 @@ function Header() {
     const router = useContext(RouterContext);
     const unit = useContext(UnitContext);
     return (
-        <div className="flex w-[90%] justify-start mt-[5px]">
+        <div className="flex w-[90%] justify-start mt-[37px]">
             {!auth?.user && (
                 <button
                     onClick={() => router?.setRoute('/auth')}
@@ -31,14 +31,14 @@ function Header() {
                 {auth?.user && auth?.user}
             </div>
             <button
-                className="bg-[url('./icons/home.svg')] w-[30px] h-[30px] bg-no-repeat cursor-pointer bg-[#e9f0fe] border rounded-lg bg-center"
+                className="bg-[url('./icons/home.svg')] w-[30px] h-[30px] bg-no-repeat cursor-pointer bg-[#e9f0fe] border rounded-lg bg-center ml-auto"
                 onClick={() => {
                     router?.setRoute('/');
                     window.location.reload();
                 }}
             ></button>
             <button
-                className="flex justify-center items-center bg-[#e9f0fe] border rounded-lg shrink-0 w-[30px] h-[30px] ml-auto"
+                className="flex justify-center items-center bg-[#e9f0fe] border rounded-lg shrink-0 w-[30px] h-[30px] "
                 onClick={unit?.toggleUnit}
             >
                 <span className="text-[#4d448e] text-lg font-extrabold font-sans-display">

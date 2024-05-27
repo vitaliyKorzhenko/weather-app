@@ -20,10 +20,10 @@ function GoogleMapComponent() {
 
     return (
         <div className="w-full h-full">
-            <div className=" pr-[9px] items-center gap-[5px] absolute z-10 flex flex-row bg-gradient-to-b from-[#48319d] to-transparent w-full h-[5%]">
+            <div className=" pr-[9px] items-center gap-[5px] absolute z-10 flex flex-row bg-gradient-to-b from-[#48319d] to-transparent w-full h-[10%] pt[27px]">
                 <div
                     onClick={() => router?.setRoute('/')}
-                    className="bg-[url('./images/icon-chevron-left.svg')] w-[18px] h-[24px] bg-no-repeat ml-[10px]"
+                    className="bg-[url('./images/icon-chevron-left.svg')] w-[18px] h-[24px] bg-no-repeat ml-[10px] cursor-pointer"
                 ></div>
                 <div className=" text-white disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:pointer-events-none font-sans-display text-[28px] font-normal leading-9 tracking-[.364px]">
                     Map

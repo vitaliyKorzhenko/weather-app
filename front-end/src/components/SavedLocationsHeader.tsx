@@ -6,7 +6,7 @@ function SavedLocationsHeader() {
     const router = useContext(RouterContext);
     const searchContext = useContext(SearchContext);
     return (
-        <div className="sticky top-0 backdrop-blur-xl z-50  py-[9px] px-[16px]">
+        <div className="sticky pt-[29px] backdrop-blur-xl z-50  py-[9px] px-[16px]">
             <div className="flex pr-[9px] items-center gap-[5px]">
                 <div
                     onClick={() => router?.setRoute('/')}
