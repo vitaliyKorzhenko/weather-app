@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useJsApiLoader, GoogleMap } from '@react-google-maps/api';
 import RouterContext from '../../Context/RouterContext';
 

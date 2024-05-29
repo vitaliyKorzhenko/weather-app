@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect } from 'react';
+import { createRef, useContext } from 'react';
 import ForecastInDetails from './ForecastInDetails';
 import clsx from 'clsx';
 import FooterContext from '../../Context/FooterContext';
@@ -6,7 +6,7 @@ import useRefScroll from '../utils/useRefScroll';
 
 function Footer() {
     const footer = useContext(FooterContext);
-    const scrollRef = useRef<HTMLElement | null>(null);
+    const scrollRef = createRef<HTMLDivElement>();
 
     useRefScroll(scrollRef);
 

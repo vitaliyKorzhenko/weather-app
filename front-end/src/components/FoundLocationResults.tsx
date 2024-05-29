@@ -1,12 +1,8 @@
 import { useContext } from 'react';
-import SavedLocationsContext from '../../Context/SavedLocationsContext';
 import { LocationItem } from '../types/LocationItem';
-import SearchContext from '../../Context/SearchContext';
 import RouterContext from '../../Context/RouterContext';
 
 function FoundLocationResults({ item }: { item: LocationItem }) {
-    const context = useContext(SavedLocationsContext);
-    const searchContext = useContext(SearchContext);
     const router = useContext(RouterContext);
 
     return (

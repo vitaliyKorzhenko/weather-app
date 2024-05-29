@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { createRef, useContext, useState } from 'react';
 import SavedLocationCard from './SavedLocationCard';
 import SavedLocationsContext from '../../Context/SavedLocationsContext';
 import FoundLocationResults from './FoundLocationResults';
@@ -10,12 +10,14 @@ function SavedLocationsPage() {
     const savedLocation = useContext(SavedLocationsContext);
 
     const searchContext = useContext(SearchContext);
-    const scrollRef = useRef<HTMLElement | null>(null);
+    const scrollRef = createRef<HTMLDivElement>();
 
     //const isMoving = useRef(false);
     const [isMoving, setIsMoving] = useState(false);
 
-    useRefScroll(scrollRef, setIsMoving);
+    useRefScroll(scrollRef, (isMoving: boolean | null) =>
+        setIsMoving(isMoving!)
+    );
 
     return (
         <>
