@@ -760,6 +760,10 @@ video {
   margin-top: 5px;
 }
 
+.mt-\[4px\] {
+  margin-top: 4px;
+}
+
 .box-border {
   box-sizing: border-box;
 }

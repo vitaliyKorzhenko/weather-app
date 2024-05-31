@@ -31,7 +31,7 @@ function SavedLocationsPage() {
                         <FoundLocationResults key={index} item={item} />
                     ))}
                     {!searchContext!.locations.length && (
-                        <div className=" scrollbar-hide flex flex-col gap-[22px] relative">
+                        <div className=" scrollbar-hide flex flex-col gap-[22px] relative mt-[4px]">
                             {savedLocation?.locations.map((item, index) => (
                                 <SavedLocationCard
                                     isMoving={isMoving}
