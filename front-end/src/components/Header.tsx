@@ -18,18 +18,20 @@ function Header() {
                 </button>
             )}
             {auth?.user && (
-                <button
-                    onClick={() => {
-                        auth.logoutHandler(() => router?.setRoute('/auth'));
-                    }}
-                    className="border rounded-lg bg-[#e9f0fe] text-[#4d448e] disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:pointer-events-none text-sm  w-[67px] mr-[5px]"
-                >
-                    Log out
-                </button>
+                <>
+                    <button
+                        onClick={() => {
+                            auth.logoutHandler(() => router?.setRoute('/auth'));
+                        }}
+                        className="border rounded-lg bg-[#e9f0fe] text-[#4d448e] disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:pointer-events-none text-sm  w-[67px] mr-[5px]"
+                    >
+                        Log out
+                    </button>
+                    <div className=" content-center text-sm border rounded-lg bg-[#e9f0fe] text-[#4d448e] px-[4px]">
+                        {auth?.user && auth?.user}
+                    </div>
+                </>
             )}
-            <div className=" content-center text-sm border rounded-lg bg-[#e9f0fe] text-[#4d448e] px-[4px]">
-                {auth?.user && auth?.user}
-            </div>
             <button
                 className="bg-[url('./icons/home.svg')] w-[30px] h-[30px] bg-no-repeat cursor-pointer bg-[#e9f0fe] border rounded-lg bg-center ml-auto"
                 onClick={() => {
