@@ -1,4 +1,4 @@
-import { findDay, amPmTime, parseISOLocal } from '../utils/dateUtils';
+import { findDay, getTimeNow, parseISOLocal } from '../utils/dateUtils';
 import { DailyHourly } from '../types/Forecast';
 import { clsx } from 'clsx';
 import { weatherCodeInfo } from '../utils/descriptions';
@@ -38,7 +38,7 @@ function WeatherNowTodayCard(props: WeatherNowTodayCardProps) {
             <div className="w-[43px] text-Label-Dark-Primary font-sans-text text-[15px] not-italic font-semibold leading-6 tracking-[-1px] text-center">
                 {props['hourlyDaily'] === 'daily'
                     ? findDay(time.getDay()).slice(0, 3).toUpperCase()
-                    : amPmTime(time)}
+                    : getTimeNow(time)}
             </div>
 
             <div className="py-[16px] flex flex-col">

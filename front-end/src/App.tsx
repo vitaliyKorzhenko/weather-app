@@ -16,8 +16,8 @@ import GoogleMap from './components/GoogleMap';
 function App() {
     return (
         <div className="grid place-items-center h-[100%] bg-[#48319d]">
-            <div className="bg-[url('./image/iphone-frame.png')] bg-cover bg-no-repeat w-[400px] h-[860px] row-start-1 col-start-1 z-[999] bg-center pointer-events-none"></div>
-            <div className="bg-[url('./image/Background.svg')] w-[390px] h-[844px] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center relative select-none row-start-1 col-start-1 scale-[0.92]">
+            <div className="bg-[url('./image/iphone-frame.png')] md:block hidden bg-cover bg-no-repeat w-[400px] h-[860px] row-start-1 col-start-1 z-[999] bg-center pointer-events-none"></div>
+            <div className="bg-[url('./image/Background.svg')] w-[390px] h-[844px] bg-gray-500 bg-cover bg-no-repeat flex flex-col items-center relative select-none row-start-1 col-start-1 md:scale-[0.92]">
                 <AuthContextProvider>
                     <UnitContextProvider>
                         <SavedLocationsContextProvider>

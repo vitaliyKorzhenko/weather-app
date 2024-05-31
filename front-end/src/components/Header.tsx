@@ -27,7 +27,7 @@ function Header() {
                     Log out
                 </button>
             )}
-            <div className=" content-center text-sm border rounded-lg bg-[#e9f0fe] text-[#4d448e]">
+            <div className=" content-center text-sm border rounded-lg bg-[#e9f0fe] text-[#4d448e] px-[4px]">
                 {auth?.user && auth?.user}
             </div>
             <button

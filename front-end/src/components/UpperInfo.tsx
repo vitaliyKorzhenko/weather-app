@@ -32,7 +32,7 @@ function UpperInfo() {
                         ).description
                     }
                 </div>
-                <div className="flex flex-row text-Label-Dark-Primary font-sans-display text-[20px] font-semibold leading-6 tracking-[.38px] justify-around">
+                <div className="flex flex-row text-Label-Dark-Primary font-sans-display text-[20px] font-semibold leading-6 tracking-[.38px] justify-around gap-[6px]">
                     <div>H:{unit?.convert(forecast!.current.temperature)}°</div>
                     <div>L:{unit?.convert(forecast!.current.temperature)}°</div>
                 </div>

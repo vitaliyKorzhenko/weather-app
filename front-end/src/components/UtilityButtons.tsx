@@ -14,14 +14,7 @@ function UtilityButtons() {
     const context = useContext(SavedLocationsContext);
 
     const [isClicked, setIsClicked] = useState(false);
-    useEffect(() => {
-        if (isClicked) {
-            const timer = setTimeout(() => {
-                setIsClicked(false);
-            }, 3000); // 3 seconds to match the animation duration
-            return () => clearTimeout(timer);
-        }
-    }, [isClicked]);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const queryUrl = new URLSearchParams(window.location.search);
     const locationDetails = {
@@ -30,6 +23,17 @@ function UtilityButtons() {
         latitude: forecast!.current.latitude,
         longitude: forecast!.current.longitude,
     } as LocationItem;
+
+    useEffect(() => {
+        const cityInQuery = queryUrl.get('city');
+        if (
+            cityInQuery &&
+            context?.locations.some((location) => location.city === cityInQuery)
+        ) {
+            setIsDisabled(true);
+        }
+    }, []);
+
     return (
         <div
             className={clsx(
@@ -46,7 +50,7 @@ function UtilityButtons() {
             )}
             <div className="bg-[url('./image/TabBar.svg')] flex w-full h-[100px] justify-around items-center bg-no-repeat">
                 <button
-                    className="bg-[url('./image/SymbolGPS.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat"
+                    className="bg-[url('./image/SymbolGPS.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat z-20"
                     onClick={() => {
                         router?.setRoute('/map', {
                             latitude: forecast!.current.latitude.toString(),
@@ -55,15 +59,20 @@ function UtilityButtons() {
                     }}
                 ></button>
                 <button
-                    disabled={!queryUrl.has('city')}
+                    disabled={!queryUrl.has('city') || isDisabled}
                     onClick={() => {
                         context?.addLocationHandler(locationDetails);
                         setIsClicked(true);
+                        setIsDisabled(true);
                     }}
                     className={clsx(
                         "bg-[url('./image/Button.svg')] w-[66px] h-[66px] flex shrink-0  bg-center bg-no-repeat ",
-                        !queryUrl.has('city') && 'grayScaleButton',
-                        queryUrl.has('city') && 'hover:scale-125'
+                        (!queryUrl.has('city') || isClicked || isDisabled) &&
+                            'grayScaleButton cursor-auto',
+                        queryUrl.has('city') &&
+                            !isClicked &&
+                            !isDisabled &&
+                            'hover:scale-125'
                     )}
                     style={{
                         filter: 'drop-shadow(10px 10px 20px rgba(13, 20, 49, 0.50)) drop-shadow(-10px -10px 20px rgba(255, 255, 255, 0.50)) ',
@@ -71,7 +80,7 @@ function UtilityButtons() {
                 ></button>
                 <button
                     onClick={() => router!.setRoute('/saved-locations')}
-                    className="bg-[url('./image/ListSymbol.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat"
+                    className="bg-[url('./image/ListSymbol.svg')] w-[44px] h-[44px] shrink-0 bg-center bg-no-repeat z-20"
                 ></button>
             </div>
         </div>
