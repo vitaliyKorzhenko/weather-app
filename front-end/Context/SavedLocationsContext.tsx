@@ -18,9 +18,11 @@ export function SavedLocationsContextProvider(props: {
     const [locations, setLocations] = useState<Location[]>([]);
 
     useEffect(() => {
-        (async () => {
+        const timeoutId = setTimeout(async () => {
             await updateLocationsHandler();
-        })();
+        }, 0); // setTimeout lets a taken to be added first, we dont know why it works with Timeout and it doesnt work without it
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     const updateLocationsHandler = useCallback(async () => {
