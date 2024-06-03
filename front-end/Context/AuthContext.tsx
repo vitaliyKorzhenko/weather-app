@@ -38,7 +38,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
 
             setError(errorText);
 
-            console.log('error', errorText);
+            //console.log('error', errorText);
         }
     }, []);
 

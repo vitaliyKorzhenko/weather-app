@@ -1,4 +1,10 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import {
     getLocations,
     deleteLocation,
@@ -7,6 +13,7 @@ import {
 import { Location } from '../src/types/Location';
 import { LocationContextTypes } from '../src/types/LocationContextTypes';
 import { LocationItem } from '../src/types/LocationItem';
+import AuthContext from './AuthContext';
 
 const SavedLocationsContext = createContext<LocationContextTypes | undefined>(
     undefined
@@ -16,14 +23,19 @@ export function SavedLocationsContextProvider(props: {
     children: React.JSX.Element;
 }) {
     const [locations, setLocations] = useState<Location[]>([]);
+    const authContext = useContext(AuthContext);
 
     useEffect(() => {
-        const timeoutId = setTimeout(async () => {
-            await updateLocationsHandler();
-        }, 0); // setTimeout lets a taken to be added first, we dont know why it works with Timeout and it doesnt work without it
+        console.log('SavedLocationsContext useEffect');
 
-        return () => clearTimeout(timeoutId);
-    }, []);
+        const updateLocations = async () => {
+            if (authContext?.user) {
+                await updateLocationsHandler();
+            }
+        };
+
+        updateLocations();
+    }, [authContext?.user]);
 
     const updateLocationsHandler = useCallback(async () => {
         const locations = await getLocations();

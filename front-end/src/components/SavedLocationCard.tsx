@@ -17,7 +17,7 @@ function SavedLocationCard({
     const router = useContext(RouterContext);
     const unit = useContext(UnitContext);
 
-    console.log(isMoving);
+    //console.log(isMoving);
 
     const obj = {
         "bg-[url('./image/rectangle-1.svg')] bg-no-repeat flex flex-row w-[342px] h-[184px] shrink-0 bg-bottom gap-2":
