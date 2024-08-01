@@ -15,6 +15,8 @@ const SavedLocation = mongoose.model('SavedLocation', {
 const User = mongoose.model('User', {
     email: String,
     passwordHash: String,
+    isVerified: Boolean,
+    verificationCode: String,
 });
 
 const Token = mongoose.model('Token', {

@@ -12,14 +12,9 @@ function LoginAndSignupPage() {
     const homePageCallback = (error: string | null) => {
         //console.log('entered useEffect');
         if (!error) {
-            console.log(error);
+            //console.log(error);
             route?.setRoute('/');
         }
-
-        // if (!auth?.error && auth?.user) {
-        //     route?.setRoute('/');
-        // }
-        //console.log(auth?.user);
     };
 
     return (

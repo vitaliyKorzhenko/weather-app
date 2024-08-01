@@ -63,7 +63,7 @@ router.get(
             log.info(
                 'Query params for reverse geocoding have been successfully received'
             );
-            console.log(data);
+            //console.log(data);
         }
 
         const [{ data: weatherDetails }, { data: airQuality }] =

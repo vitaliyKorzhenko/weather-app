@@ -23,7 +23,7 @@ export default {
                 },
             },
             animation: {
-                fadeOut: 'fadeOut 3s forwards',
+                fadeOut: 'fadeOut 4s forwards',
             },
         },
         boxShadow: {

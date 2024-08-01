@@ -116,6 +116,11 @@ router.post(
             return res.status(401).end();
         }
 
+        if (!req.user.isVerified) {
+            log.warn('User is not verified');
+            return res.status(403).end('User is not verified');
+        }
+
         //this comes from frontend in request body
         const { city, country, latitude, longitude } = req.body;
 

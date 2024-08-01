@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var { User, Token } = require('./../db');
+var logger = require('../logger');
+
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const log = require('../logger');
+const sendEmail = require('../mailer');
+const { v4: uuidv4 } = require('uuid');
 
 const validateEmail = () =>
     body('email').notEmpty().withMessage('Your email is empty').isEmail();
@@ -21,10 +25,10 @@ const validatePassword = () =>
         })
         .withMessage('Your password doesnt meet the requirements');
 
-const createNewToken = async (email, userId) => {
+const createNewToken = async (email, isVerified, userId) => {
     const token = jwt.sign(
         //only here we get our token for the first time
-        { email },
+        { email, isVerified },
         process.env.JWTSECRET,
         {
             expiresIn: '60 days',
@@ -62,15 +66,59 @@ router.post(
         const user = await User.create({
             email: loginData.email,
             passwordHash: await bcrypt.hash(loginData.password, 10),
+            isVerified: false,
+            verificationCode: uuidv4(),
         });
 
-        log.info('You have seccussfully created an account');
+        log.info('You have successfully created an account');
 
-        const token = await createNewToken(user.email, user._id);
+        const token = await createNewToken(
+            user.email,
+            user.isVerified,
+            user._id
+        );
+
+        sendEmail(
+            user.email,
+            'Verification',
+            `${process.env.VERIFY_BASE_URL}account/verify?code=${user.verificationCode}`
+        );
 
         res.end(token);
     }
 );
+
+router.get('/verify', async function (req, res) {
+    const verificationCode = req.query.code;
+
+    const existingUser = await User.exists({
+        // returns existing user or null
+        verificationCode: verificationCode,
+    });
+
+    if (!existingUser) {
+        return res.redirect(process.env.REDIRECT_URL_HOME);
+    }
+
+    logger.error(existingUser);
+
+    const user = await User.findOneAndUpdate(
+        { _id: existingUser._id },
+        { isVerified: true },
+        { new: true }
+    );
+
+    logger.error(user);
+
+    const token = await createNewToken(user.email, user.isVerified, user._id);
+    logger.error(`backend token: ${token}`);
+
+    // res.redirect(`${process.env.REDIRECT_URL_HOME}?token=${token}`);
+
+    res.cookie('token', token, { httpOnly: false }).redirect(
+        `${process.env.REDIRECT_URL_HOME}`
+    );
+});
 
 router.delete('/delete', async function (req, res) {
     if (req.user) {
@@ -124,6 +172,7 @@ router.post(
 
         const token = await createNewToken(
             existingUser.email,
+            existingUser.isVerified,
             existingUser._id
         );
 

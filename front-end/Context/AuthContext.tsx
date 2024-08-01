@@ -3,6 +3,8 @@ import axios, { AxiosError } from 'axios';
 import { Auth } from '../src/types/AuthContextTypes';
 import { deleteAccount, logOut, login, signup } from '../src/utils/authApi';
 import { jwtDecode } from 'jwt-decode';
+import Cookies from 'universal-cookie';
+import { setServers } from 'dns';
 
 const AuthContext = createContext<Auth | undefined>(undefined);
 
@@ -10,15 +12,25 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
     const [user, setUser] = useState<string | null>(null);
     const [userIsLoading] = useState(false);
     const [error, setError] = useState<string | null>();
+    const [isVerified, setIsVerified] = useState<boolean>(false);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            axios.defaults.headers.authorization = `Bearer ${token}`;
-            const decodedPayloadtoken = jwtDecode(token); //payload: //{email: yalo@ukr.net, iat:123455, exp: 134556}
-            const currentUser = (decodedPayloadtoken as any).email;
-            setUser(currentUser);
-        }
+        (async () => {
+            const cookies = new Cookies(null, { path: '/' });
+            const cookieToken = cookies.get('token');
+
+            if (cookieToken) {
+                //console.log(cookieToken);
+                await setSession(cookieToken);
+                cookies.remove('token');
+            }
+
+            const token = sessionStorage.getItem('token');
+            if (token) {
+                //console.log(token);
+                await setSession(token);
+            }
+        })();
     }, []);
 
     const setSession = useCallback(async (token: string) => {
@@ -27,11 +39,13 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
 
             axios.defaults.headers.authorization = `Bearer ${token}`;
 
-            const decodedPayloadtoken = jwtDecode(token); //payload: //{email: yalo@ukr.net, iat:123455, exp: 134556}
+            const decodedPayloadtoken = jwtDecode(token); //payload:
+            //console.log(decodedPayloadtoken); //{email: yalo@ukr.net, iat:123455, exp: 134556}
             const currentUser = (decodedPayloadtoken as any).email;
+            const currentUserVer = (decodedPayloadtoken as any).isVerified;
 
             //console.log(currentUser);
-
+            setIsVerified(currentUserVer);
             setUser(currentUser);
         } catch (error: unknown) {
             const errorText = (error as AxiosError)!.response!.data as string;
@@ -51,7 +65,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
             try {
                 sessionStorage.removeItem('token');
                 axios.defaults.headers.authorization = null;
-                console.log(axios.defaults.headers.token);
+                //console.log(axios.defaults.headers.token);
 
                 const token = await login(email, password);
 
@@ -118,6 +132,7 @@ export function AuthContextProvider(props: { children: React.JSX.Element }) {
                 user,
                 userIsLoading,
                 error,
+                isVerified,
                 loginHandler,
                 logoutHandler,
                 signupHandler,

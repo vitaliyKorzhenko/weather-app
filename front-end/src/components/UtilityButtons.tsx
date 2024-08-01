@@ -6,12 +6,14 @@ import ForecastContext from '../../Context/ForecastContext';
 import SavedLocationsContext from '../../Context/SavedLocationsContext';
 import { LocationItem } from '../types/LocationItem';
 import FooterContext from '../../Context/FooterContext';
+import AuthContext from '../../Context/AuthContext';
 
 function UtilityButtons() {
     const router = useContext(RouterContext);
     const footer = useContext(FooterContext);
     const forecast = useContext(ForecastContext);
     const context = useContext(SavedLocationsContext);
+    const auth = useContext(AuthContext);
 
     const [isClicked, setIsClicked] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -43,8 +45,16 @@ function UtilityButtons() {
         >
             {isClicked && (
                 <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className="bg-white text-[#4d448e] animate-fadeOut border rounded-lg p-2">
-                        Location added
+                    <div
+                        className={`bg-white border rounded-lg p-2 ${
+                            auth?.isVerified
+                                ? 'text-[#4d448e] animate-fadeOut'
+                                : 'text-red-600'
+                        }`}
+                    >
+                        {auth?.isVerified
+                            ? 'Location added'
+                            : 'Verify your account'}
                     </div>
                 </div>
             )}

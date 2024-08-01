@@ -2,6 +2,7 @@ export interface Auth {
     user: string | null;
     userIsLoading: boolean;
     error: string | null | undefined;
+    isVerified: boolean;
     loginHandler: (
         email: string,
         password: string,

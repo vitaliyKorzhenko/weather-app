@@ -1058,7 +1058,7 @@ video {
 }
 
 .animate-fadeOut {
-  animation: fadeOut 3s forwards;
+  animation: fadeOut 4s forwards;
 }
 
 .cursor-auto {
@@ -1756,6 +1756,11 @@ video {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .text-rose-500 {

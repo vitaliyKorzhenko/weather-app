@@ -26,7 +26,7 @@ export function SavedLocationsContextProvider(props: {
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
-        console.log('SavedLocationsContext useEffect');
+        //console.log('SavedLocationsContext useEffect');
 
         const updateLocations = async () => {
             if (authContext?.user) {
