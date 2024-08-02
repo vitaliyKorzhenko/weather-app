@@ -6,7 +6,7 @@ import axios from 'axios';
 
 //axios.defaults.baseURL = 'https://weather-app-e6s2.onrender.com';
 //axios.defaults.baseURL = 'https://k56s7znb-3000.usw3.devtunnels.ms/';
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'weather.olgageyfmanorlova.page/api';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
