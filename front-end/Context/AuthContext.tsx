@@ -4,7 +4,6 @@ import { Auth } from '../src/types/AuthContextTypes';
 import { deleteAccount, logOut, login, signup } from '../src/utils/authApi';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'universal-cookie';
-import { setServers } from 'dns';
 
 const AuthContext = createContext<Auth | undefined>(undefined);
 
