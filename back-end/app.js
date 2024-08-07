@@ -67,9 +67,9 @@ app.use(async (req, res, next) => {
     next();
 });
 
-app.use('/account', accountRouter);
-app.use('/forecast', forecastRouter);
-app.use('/locations', savedLocationsRouter);
+app.use('api/account', accountRouter);
+app.use('api/forecast', forecastRouter);
+app.use('api/locations', savedLocationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
